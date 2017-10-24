@@ -1,0 +1,13 @@
+.quote-header {
+   color: blue;
+   font-weight:bold;
+   font-weight:13px;
+   margin-left:10px;
+}
+.quote-table-column{
+	padding-left:5px;
+}
+.left-align{
+	text-align:left;
+	margin-left:2px;
+}

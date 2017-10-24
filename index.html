@@ -11,6 +11,7 @@
     <link href="bower_components/assets/css/mui.css" rel="stylesheet" />
     <link href="bower_components/assets/css/font-awesome.css" rel="stylesheet" />
     <link href="bower_components/assets/css/select2.css" rel="stylesheet" />
+	<link href="bower_components/assets/css/search.css" rel="stylesheet" />
 </head>
 <body>
 
@@ -137,6 +138,12 @@
                         <input id="registerbtn" class="btn btn-medium btn-primary" value="Search" />
                     </div>
                 </div>
+				<div>
+					<p class="quote-header">Your recent activity bookings</p>
+					<div id= "travel-service-quotes">
+					
+				    </div>
+				</div>
             </div>
         </div>
     </div>
@@ -149,7 +156,25 @@
         </li>
         {{/activities}}
     </script>
-
+	<script id="tmpl-search-quotes" type="text/mustache-template">
+		<table width="100%" style="border-width:2px">
+			<th class="left-align">Quote Id</th>
+			<th class="left-align">Name</th>
+			<th class="left-align">Ref. #</th>
+			<th class="left-align">Client</th>
+			<th class="left-align">Agent</th>
+		
+		{{#Results}}	
+		<tr>
+			<td class="quote-table-column">{{QuoteId}}</td>
+			<td>{{Name}}</td>
+			<td>{{AdxRefNum}}</td>
+			<td>{{Client.DisplayName}}</td>
+			<td>{{AgentName}}</td>
+		</tr>	
+		{{/Results}}
+	</table>		
+	</script>
     <script src="bower_components/assets/js/Jquery/jquery-2.0.3.min.js"></script>
     <script src="bower_components/assets/js/Nod/nod.js"></script>
     <script src="bower_components/assets/js/Bootstrap/bootstrap-datepicker.js"></script>

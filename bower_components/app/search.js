@@ -53,6 +53,7 @@ $(document)
             initialize: function() {
                 this.initInputForm();
                 this.findAddress();
+				this.getQuotes();
             },
 
             initInputForm: function() {
@@ -166,7 +167,43 @@ $(document)
                 return true;
 
             },
+			getSelectedAgents: function () {
+                var agents = [];
 
+                if (window.TEAgent) {
+                    //Get the Delegated Agents from Cookies
+                    agents = this.GetCookie('SelectedAgents') ?
+                            this.GetCookie('SelectedAgents').Agents.split(',') : [];
+                }
+                return agents;
+            },
+			getQuotes: function(){
+				 var template,
+                    self = this;
+					
+                template = $("#tmpl-search-quotes").html();
+				
+				$.ajax({
+                    url: "../api/quotes/search?archived=false&sort=updated&order=DESC&page=1&perpage=8&filternoclient=false&UserId=339&travelServiceTypeIdString=1,6,3,5,7,4,8&agents=" + this.getSelectedAgents() + "&quoteIds=",
+                    type: "GET",
+                    success: function(e) {
+                        if (e != null) {
+                            var htm = Mustache.render(template, e);
+                            self.$("#travel-service-quotes").html(htm);
+                        }
+                           
+                    },
+                    error: function (e, o, t) {
+                        e.ActivityGroup = {};
+                        e.ErrorCoccured = true;
+                        e.errorDto = JSON.parse(e.responseText);
+                        var errorDetails = { errorData: e };
+                        var htm = Mustache.render(template, errorDetails);
+                        self.$("#travel-service-quotes").html(htm);
+                        console.log(e + "\n" + o + "\n" + t);
+                    }
+                });
+			},
             // Backbone View events ...
 
             events: {
