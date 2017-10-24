@@ -93,15 +93,7 @@
                                                 <div class="col-xs-12 col-md-12" style="margin-top: 15px">
                                                     <strong>Registered Name: {{DisplayContactName}}</strong>
                                                 </div>
-                                            </div>
-                                            <div class="row" style="margin-top: 10px;">
-                                                <div class="col-xs-8 col-md-8">
-                                                    <strong>Rate Name:</strong>
-                                                </div>
-                                                <div class="col-xs-4 col-md-4">
-                                                    <strong>Rate Code:</strong>
-                                                </div>
-                                            </div>
+                                            </div>                                           
                                             <div class="row" style="margin-top: 10px;">
                                                 
                                                 <div class="col-xs-8 col-md-8">
@@ -120,12 +112,11 @@
                                                 <div class="row" style="margin-top: 10px;">
                                                     <div class="col-xs-12 col-md-12" style="margin-left: 15px;margin-top: 5px;">
                                                         <strong>Rate Description:</strong><br><br>
+														{{Detail.ShortDescription}}
                                                     </div>
                                                 </div>
                                             </div>
-
-                                        </div>
-
+                                        </div>										
                                     </div>
 
                                 </li>
@@ -135,8 +126,25 @@
                         </div>
 
                     </div>
+					<div><br/></div>
                     <div style="width: 100%">
+						<div class="row" style="margin-bottom:20px;">
+                            {{#Rate.CancellationPolicies}}
+                            <div class="col-md-6" style="margin-bottom: 3px;">
+                                <div class="te-notification te-sm-notification alert-warning">
+                                    <strong>
+                                        Cancellation Policy:
+                                    </strong>
+                                    <p></p>
+                                    <p>{{Description}}
+                                    </p>
 
+                                </div>
+
+                            </div>
+                            {{/Rate.CancellationPolicies}}
+                           
+                        </div>
                     </div>
                 </div>
 
@@ -217,44 +225,26 @@
                                         {{DisplayContactName}}
                                     </div>
                                 </div>
-                                <div class="row row-7">
-                                    <div class="col-xs-12 col-md-12">
-                                        <hr style="margin-top: 5px; margin-bottom: 5px;">
-
-                                        <p class="hotel-service-address clearfix">
-                                            <!--
-                                            41 RUE DES ECOLES
-                                            Latin Quarter Area
-                                            <br>
-                                            <span class="hotel-address-city">Paris</span>
-                                            <span class="hotel-address-country">, France</span>
-                                            <span class="hotel-address-zip">, 75005</span>
-                                            -->
-                                        </p>
-                                    </div>
-                                </div>
-
-
-
-                                <div class="row row-7">
+                                <div class="row row-7 ice-grey">
                                     <div class="col-md-4 col-xs-4">
                                         <label class="details">Phone</label>
                                     </div>
                                     <div class="col-md-8 col-xs-8">
-                                        
+                                        {{Detail.PhoneNumber}}											
                                     </div>
                                 </div>
 
-
-                                <div class="row row-7">
+                                <div class="row row-7 ice-grey">
                                     <div class="col-md-4 col-xs-4">
-                                        <label class="details">Website</label>
+                                        <label class="details">Address</label>
                                     </div>
                                     <div class="col-md-8 col-xs-8">
-                                        <a class="text-truncate" href="" target="_blank"> </a>
+                                        {{#Detail.Address}}
+											{{Address1}} {{Address2}} {{City}} {{Zip}}  
+										{{/Detail.Address}}
                                     </div>
                                 </div>
-
+								
                                 <div class="row row-7">
                                     <div class="col-xs-12 col-md-12">
                                         <hr style="margin-top: 5px; margin-bottom: 5px;">
@@ -263,27 +253,6 @@
 
                             </div>
                         </div>
-                        
-                        <div class="row" style="margin-bottom:20px;">
-                            {{#Rate.CancellationPolicies}}
-                            <div class="col-md-12" style="margin-bottom: 3px;">
-                                <div class="te-notification te-sm-notification alert-warning">
-                                    <strong>
-                                        Cancellation Policy:
-                                    </strong>
-                                    <p></p>
-                                    <p>{{Description}}
-                                    </p>
-
-                                </div>
-
-                            </div>
-                            {{/Rate.CancellationPolicies}}
-                           
-                        </div>
-                      
-
-
                     </div>
 
                 </div>

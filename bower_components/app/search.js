@@ -167,15 +167,32 @@ $(document)
                 return true;
 
             },
-			getSelectedAgents: function () {
-                var agents = [];
-
-                if (window.TEAgent) {
-                    //Get the Delegated Agents from Cookies
-                    agents = this.GetCookie('SelectedAgents') ?
-                            this.GetCookie('SelectedAgents').Agents.split(',') : [];
-                }
-                return agents;
+			getSelectedAgents: function (mainkey, subkey) {
+                var name = mainkey + "=";
+				var subCookie = subkey + "=";
+				
+				var firstString;
+				var ca = document.cookie.split(';');
+				for(var i = 0; i < ca.length; i++) {
+					var c = ca[i];
+					while (c.charAt(0) == ' ') {
+						c = c.substring(1);
+					}
+					if (c.indexOf(name) == 0) {
+						firstString =  c.substring(name.length, c.length);
+						break;
+					}
+				}
+				if(firstString){
+					var cookieName = firstString.split('&');
+					for(var k = 0; k < ca.length; k++){
+						var split = cookieName[k];
+						if(split.indexOf(subCookie) === 0){
+							return split.substring(subCookie.length, split.length);
+						}
+					}
+				}
+				return "";
             },
 			getQuotes: function(){
 				 var template,
@@ -184,7 +201,7 @@ $(document)
                 template = $("#tmpl-search-quotes").html();
 				
 				$.ajax({
-                    url: "../api/quotes/search?archived=false&sort=updated&order=DESC&page=1&perpage=8&filternoclient=false&UserId=339&travelServiceTypeIdString=1,6,3,5,7,4,8&agents=" + this.getSelectedAgents() + "&quoteIds=",
+                    url: "../api/quotes/search?archived=false&sort=updated&order=DESC&page=1&perpage=8&filternoclient=false&UserId=339&travelServiceTypeIdString=1,6,3,5,7,4,8&agents=" + this.getSelectedAgents("user","AgentId") + "&quoteIds=",
                     type: "GET",
                     success: function(e) {
                         if (e != null) {

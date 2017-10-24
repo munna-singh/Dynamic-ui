@@ -42,15 +42,17 @@
                         </form>
                     </div>
                 </div>
-                <div class="box-footer">
-                    <div class="pull-right buttongroup">
-                        <input id="Back" class="btn btn-small" onclick="window.location = 'index.html'; return false;" value="Back" />
-                    </div>
-
-                    <div class="pull-right buttongroup">
-                        <button id="bookbtn"title="Book" type="button" onclick="onBookButtonClick();" disabled="" class="btn btn-primary on-quote-only-click" style="margin-right: 8px;">Book</button>
-
-                    </div>
+                <div>                  
+					<table width="100%">
+						<tr>
+							<td>
+								<input id="Back" class="btn btn-small" onclick="window.location = 'index.html'; return false;" value="Back" />
+							</td>
+							<td style="text-align:right">
+								<button id="bookbtn"title="Book" type="button" onclick="onBookButtonClick();" disabled="" class="btn btn-small btn btn-primary on-quote-only-click" style="width:150px;">Book</button>
+							</td>							
+						</tr>
+					</table>                   
                 </div>
             </div>
         </div>
@@ -597,7 +599,7 @@
                                         </div>
                                     </div>
                                     {{#details}}{{#.}}
-                                    <div class="col-md-8" style="height: 80px;background-color: whitesmoke;">
+                                    <div class="col-md-12" style="height: 80px;background-color: whitesmoke;">
                                         {{#Rules}}
                                         <div class="row ">
 
@@ -620,11 +622,7 @@
                                     </div>
                                     
                                    {{/.}}{{/details}}
-                                </div>
-                                <div class="travellerName" style="padding-right:363px;float: right;">
-                                    <button id="submitQS" title="Submit" type="button" onclick="onsubmitQSButtonClick();" >Submit</button>
-                                  
-                                </div>
+                                </div>                               
                             </div>
                         </div>
                     </div>

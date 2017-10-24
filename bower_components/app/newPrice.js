@@ -206,11 +206,37 @@ function onQuoteButtonClick() {
  var quoteRequest = {
     "QuoteName": "ACTIVITIES - " + quoteName,
     "TravelServices": TravelServices,
-    "AgentId": 1347
+    "AgentId":getSelectedAgents("user","AgentId")
 };
 
 
-
+function getSelectedAgents(mainkey, subkey) {
+                var name = mainkey + "=";
+				var subCookie = subkey + "=";
+				
+				var firstString;
+				var ca = document.cookie.split(';');
+				for(var i = 0; i < ca.length; i++) {
+					var c = ca[i];
+					while (c.charAt(0) == ' ') {
+						c = c.substring(1);
+					}
+					if (c.indexOf(name) == 0) {
+						firstString =  c.substring(name.length, c.length);
+						break;
+					}
+				}
+				if(firstString){
+					var cookieName = firstString.split('&');
+					for(var k = 0; k < ca.length; k++){
+						var split = cookieName[k];
+						if(split.indexOf(subCookie) === 0){
+							return split.substring(subCookie.length, split.length);
+						}
+					}
+				}
+				return "";
+            };
  
 
     $.ajax({
