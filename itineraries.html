@@ -1,0 +1,310 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Activity Details</title>
+    <meta charset="utf-8" />
+    <meta charset="utf-8" />
+    <link rel="shortcut icon" type="image/png" href="img/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="" />
+    <meta name="author" content="aDX" />
+    <link href="bower_components/assets/css/mui.css" rel="stylesheet" />
+    <link href="bower_components/assets/css/activitypriceDetails.css" rel="stylesheet" />
+    <link href="bower_components/assets/css/font-awesome.css" rel="stylesheet" />
+    <link href="bower_components/assets/css/select2.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="bower_components/assets/css/activitypriceDetails.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <div class="totalstaybooking">
+        <div class="contentBlock">
+            <div title="" class="header bsiLogo">
+                <img id="loginpageTitle" onclick="window.location = 'index.html'; return false;" src="img/travel-edge-adx.small.png" alt="Logo" />
+            </div>
+            <div id="Reg" class="box box-noborder">
+                <div class="">
+                    <h3>Activity Itinerary Summary</h3>
+
+                    <!--<div id="SearchCriteriaPlaceHolder"></div>-->
+
+                </div>
+                <div class="box-content" id="maincontainer">
+                    <div class="box-content-margin">
+                        <form id="RegMetadata" class="form-float">
+                            <div class="span12" id="historyDiv">
+                                <div class="historical-wrapper">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="box-footer">
+                    <div class="pull-right buttongroup">
+                        <input id="Back" class="btn btn-small" onclick="window.location = 'index.html'; return false;" value="Back" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script id="tmpl-activity-summary" type="text/mustache-template">
+
+        {{#details}}
+        {{#ActivityTravelServices}}
+        <div class="row">
+            <div class="col-md-8">
+                <div class="panel-default">
+                    <div>
+                        <div class="panel-title panel-heading">
+                            <span class="fa fa-list-ul dashboard-general-icon"></span>
+                            <div class="dashboard-title-text ellipsis" style="color: white;"><b>ITINERARY DETAILS</b></div>
+                        </div>
+                        <div style="padding: 15px;background-color: #E0E6E8;">
+                            <ul>
+                                <li style="margin-left: -30px;">
+                                    <div>
+                                        <div>
+                                            <div>
+                                                <span class="service-list-icon">
+
+                                                </span>
+                                                <div class="service-list-title">
+                                                    <p>
+                                                        <strong>
+                                                            {{ActivityName}}
+                                                        </strong>
+                                                    </p>
+                                                    
+                                                    <div>
+                                                        {{StartDate}} – {{EndDate}}
+                                                    </div>
+                                                </div>
+                                                <div class="service-list-status">
+                                                    <span id ="book2" class ="label-status"style="background-color :green ; color: white;">
+                                                        BOOKEDNOPAY
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="row" style="margin-top: -20px;">
+                                                <div class="col-xs-12 col-md-12" style="margin-top: 15px">
+                                                    <strong>Registered Name: {{DisplayContactName}}</strong>
+                                                </div>
+                                            </div>
+                                            <div class="row" style="margin-top: 10px;">
+                                                <div class="col-xs-8 col-md-8">
+                                                    <strong>Rate Name:</strong>
+                                                </div>
+                                                <div class="col-xs-4 col-md-4">
+                                                    <strong>Rate Code:</strong>
+                                                </div>
+                                            </div>
+                                            <div class="row" style="margin-top: 10px;">
+                                                
+                                                <div class="col-xs-8 col-md-8">
+                                                    {{#Rate.NumberOfUnits}}
+                                                    <strong>Number of Units:</strong> {{Rate.NumberOfUnits}}
+                                                    {{/Rate.NumberOfUnits}}
+                                                    {{#Rate.NumberOfAdults}}
+                                                    <strong>Number of Adults:</strong> {{Rate.NumberOfAdults}}
+                                                    {{/Rate.NumberOfAdults}}
+                                                </div>
+                                                
+                                                <div class="col-xs-4 col-md-4">
+                                                    <strong>Activity Rate:</strong> {{Rate.TotalPrice.CurrencyCode}} {{Rate.TotalPrice.Symbol}}{{Rate.TotalPrice.Amount}}
+                                                </div>
+                                                
+                                                <div class="row" style="margin-top: 10px;">
+                                                    <div class="col-xs-12 col-md-12" style="margin-left: 15px;margin-top: 5px;">
+                                                        <strong>Rate Description:</strong><br><br>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </li>
+                                
+                            </ul>
+
+                        </div>
+
+                    </div>
+                    <div style="width: 100%">
+
+                    </div>
+                </div>
+
+            </div>
+
+            
+            <div class="col-md-4">
+                <div>
+                    <div class="hotel-service-container">
+                        <div class="panel-default panel">
+                            <div>
+                                <div class="panel-title panel-heading">
+                                    <span class="fa icon icon-te-hotel dashboard-general-icon"></span>
+                                    <div style="color:white" title="">
+                                        <b>ACTIVITY DETAILS</b>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="padding:15px;">
+                                <div class="row margin-bottom-5 row-7">
+                                    <div class="col-md-3 col-xs-3" style="margin-right: -5px;">
+                                        <span id="book1" class="label-status label-booked-no-pay" style="background-color :green ; color: white;">BookedNoPay</span>
+                                    </div>
+                                </div>
+                                <div class="row row-7">
+                                    <div class="col-md-4 col-xs-4">
+                                        <label class="details">Conf. # BookingReference</label>
+                                    </div>
+                                    <div class="col-md-8 col-xs-8">
+                                        <p style="margin: 1px">{{BookingInformation.BookingReference}}</p>
+                                    </div>
+                                </div>
+
+                                <div class="row row-7">
+                                    <div class="col-md-4 col-xs-4">
+                                        <label class="details">Rec. Loc.</label>
+                                    </div>
+                                    <div class="col-md-8 col-xs-8">
+                                        {{BookingInformation.RecordLocator}}
+                                    </div>
+                                </div>
+                                <div class="row row-7 ice-grey">
+                                    <div class="col-md-4 col-xs-4">
+                                        <label class="details">ACTIVITY</label>
+                                    </div>
+                                    <div class="col-md-8 col-xs-8">
+                                       <p>{{ActivityName}}</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="row row-7 ice-grey">
+                                    {{#Rate.NumberOfUnits}}
+                                    <div class="col-md-4 col-xs-4">
+                                        <label class="details">Number of Units</label>
+                                        
+                                    </div>
+                                    <div class="col-md-8 col-xs-8">
+                                        {{Rate.NumberOfUnits}}
+                                    </div>
+                                    {{/Rate.NumberOfUnits}}
+
+                                    {{#Rate.NumberOfAdults}}
+                                    <div class="col-md-4 col-xs-4">
+                                        <label class="details">Number of Adults</label>
+
+                                    </div>
+                                    <div class="col-md-8 col-xs-8">
+                                        {{Rate.NumberOfAdults}}
+                                    </div>
+                                    {{/Rate.NumberOfAdults}}
+                                </div>
+                                
+                                <div class="row row-7 ice-grey">
+                                    <div class="col-md-4 col-xs-4">
+                                        <label class="details">Registered</label>
+                                    </div>
+                                    <div class="col-md-8 col-xs-8">
+                                        {{DisplayContactName}}
+                                    </div>
+                                </div>
+                                <div class="row row-7">
+                                    <div class="col-xs-12 col-md-12">
+                                        <hr style="margin-top: 5px; margin-bottom: 5px;">
+
+                                        <p class="hotel-service-address clearfix">
+                                            <!--
+                                            41 RUE DES ECOLES
+                                            Latin Quarter Area
+                                            <br>
+                                            <span class="hotel-address-city">Paris</span>
+                                            <span class="hotel-address-country">, France</span>
+                                            <span class="hotel-address-zip">, 75005</span>
+                                            -->
+                                        </p>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="row row-7">
+                                    <div class="col-md-4 col-xs-4">
+                                        <label class="details">Phone</label>
+                                    </div>
+                                    <div class="col-md-8 col-xs-8">
+                                        
+                                    </div>
+                                </div>
+
+
+                                <div class="row row-7">
+                                    <div class="col-md-4 col-xs-4">
+                                        <label class="details">Website</label>
+                                    </div>
+                                    <div class="col-md-8 col-xs-8">
+                                        <a class="text-truncate" href="" target="_blank"> </a>
+                                    </div>
+                                </div>
+
+                                <div class="row row-7">
+                                    <div class="col-xs-12 col-md-12">
+                                        <hr style="margin-top: 5px; margin-bottom: 5px;">
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        
+                        <div class="row" style="margin-bottom:20px;">
+                            {{#Rate.CancellationPolicies}}
+                            <div class="col-md-12" style="margin-bottom: 3px;">
+                                <div class="te-notification te-sm-notification alert-warning">
+                                    <strong>
+                                        Cancellation Policy:
+                                    </strong>
+                                    <p></p>
+                                    <p>{{Description}}
+                                    </p>
+
+                                </div>
+
+                            </div>
+                            {{/Rate.CancellationPolicies}}
+                           
+                        </div>
+                      
+
+
+                    </div>
+
+                </div>
+
+            </div>
+           
+        </div>
+        {{/ActivityTravelServices}}
+        {{/details}}
+
+
+
+    </script>
+
+    <link href="bower_components/assets/css/activityresult.css " rel="stylesheet " />
+    <script src="bower_components/assets/js/Jquery/jquery-2.0.3.min.js "></script>
+    <script src="bower_components/assets/js/libs/underscore.js "></script>
+    <script src="bower_components/assets/js/libs/backbone.js "></script>
+    <script src="bower_components/assets/js/libs/mustache.min.js "></script>
+    <script src="bower_components/app/common.js "></script>
+    <script src="bower_components/app/itineraries.js "></script>
+</body>
+
+</html>

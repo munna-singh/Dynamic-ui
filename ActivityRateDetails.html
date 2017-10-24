@@ -1,0 +1,232 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Activity Details</title>
+    <meta charset="utf-8" />
+    <meta charset="utf-8" />
+    <link rel="shortcut icon" type="image/png" href="img/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="" />
+    <meta name="author" content="aDX" />
+    <link href="bower_components/assets/css/mui.css" rel="stylesheet" />
+    <link href="bower_components/assets/css/activitypriceDetails.css" rel="stylesheet" />
+    <link href="bower_components/assets/css/font-awesome.css" rel="stylesheet" />
+    <link href="bower_components/assets/css/select2.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <div class="totalstaybooking">
+        <div class="contentBlock">
+            <div title="" class="header bsiLogo">
+                <img id="loginpageTitle" onclick="window.location = 'index.html'; return false;" src="img/travel-edge-adx.small.png" alt="Logo" />
+            </div>
+            <div id="Reg" class="box box-noborder">
+                <div class="box-header">
+                    <h3>Activity Price Details</h3>
+
+                    <div id="SearchCriteriaPlaceHolder"></div>
+
+                </div>
+                <div class="box-content" id="maincontainer">
+                    <div class="box-content-margin">
+                        <form id="RegMetadata" class="form-float">
+                            <div class="span12" id="historyDiv">
+                                <div class="historical-wrapper">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="box-footer">
+                    <div class="pull-right buttongroup">
+                        <input id="Back" class="btn btn-small" onclick="window.location = 'index.html'; return false;" value="Back" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script id="tmpl-search-criteria" type="text/mustache-template">
+
+        <div style="background-color: #E0E6E8; padding: 11px; border-radius: 5px;">
+            <table style="width:100%">
+                <tr>
+                    <td class="pagesearchheaderName">DESTINATION</td>
+                    <td class="pagesearchheaderValue">{{Destination.Description}}</td>
+                    <td class="pagesearchheaderName">POPULARITY</td>
+                    <td class="pagesearchheaderValue">{{MinRating}} - {{MaxRating}} Stars</td>
+                </tr>
+                <tr>
+                    <td class="pagesearchheaderName">START DATE</td>
+                    <td class="pagesearchheaderValue">{{StartDate}}</td>
+                    <td class="pagesearchheaderName">END DATE</td>
+                    <td class="pagesearchheaderValue">{{EndDate}}</td>
+                </tr>
+            </table>
+        </div>
+    </script>
+
+    <script id="tmpl-activity-price-descriptions" type="text/mustache-template">
+        <table class="body">
+            <!--If there is any result-->
+            {{#Results}}
+            {{#PricedActivityDetails}}
+            <tr>
+                <td style="background-color:white">
+                    <table class="table table-borderless"  cellpadding="0" cellspacing="0" border="0" width="100%">
+                        <tr style="background-color: #E0E6E8;">
+                            <td class="col-md-2"><img width="150px" height="200px" src="{{ThumbUrl}}" alt="Niagara Falls Day Tour" name="activityThumb" onerror="this.src ='img/photo-not-available-small.gif'"></td>
+                            <td width="50px">&nbsp;</td>
+                            <td>
+                                <div class="row activityPriceDetailsBold">
+                                    <div class="col-md-12">
+                                        {{ActivityName}}
+                                    </div>
+                                </div>
+                                <div class="row activityPriceDetailsBold">
+                                    <div class="col-md-4">Selected Date</div>
+                                    {{#NumberOfAdults}}                                    
+                                    <div class="col-md-4">Total Adults</div>
+                                    <div class="col-md-4">Total Children</div>
+                                    {{/NumberOfAdults}}
+                                    {{#NumberOfUnits}}
+                                    <div class="col-md-8">Total Units</div>
+                                    {{/NumberOfUnits}}
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">{{ActivityDate}}</div>
+                                    {{#NumberOfAdults}}
+                                    <div class="col-md-4">{{NumberOfAdults}}</div>
+                                    <div class="col-md-4">{{NumberOfChidren}}</div>
+                                    {{/NumberOfAdults}}
+                                    {{#NumberOfUnits}}
+                                    <div class="col-md-8">{{NumberOfUnits}}</div>
+                                    {{/NumberOfUnits}}
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4"><strong>Option Name:</strong></div>
+                                   
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">{{OptionName}}</div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12"><strong>Activity Description:</strong></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">{{ShortDescription}}</div>
+                                </div>
+                                <div class="row">
+                                    <br />
+                                    <div class="col-md-12 InfantsAged">**{{ChildAgeOffer}}**</div>
+                                </div>
+                                
+                            </td>
+                            <td style="background-color: white; padding: inherit;">&nbsp;</td>
+                            <td class="col-md-2 activityCancellationPolicy">
+                                
+                                <strong>Calcallation Policy:</strong>
+                                {{#CancellationPolicies}}
+                                <div>
+                                    <p>{{Description}}</p>                                    
+                                </div>
+                                {{/CancellationPolicies}}
+                            </td>
+                        </tr>
+                       
+                        
+                        
+                        <tr style="background-color: white;">
+                            <td colspan="3">
+                                <div class="row rateHighlightsHead">
+                                    <div class="col-md-3">Dates</div>
+                                    {{#NumberOfAdults}}
+                                    <div class="col-md-2">Rate Per Adult</div>
+                                   
+                                    {{/NumberOfAdults}}
+                                    {{#TotalChildPrice}}
+                                    <div class="col-md-2">Rate Per Child</div>
+                                    {{/TotalChildPrice}}
+                                    {{^TotalChildPrice}}
+                                    <div class="col-md-2"> </div>
+                                    {{/TotalChildPrice}}
+                                    {{#NumberOfUnits}}
+                                    <div class="col-md-2">Rate Per Unit</div>
+                                    {{/NumberOfUnits}}
+                                    <div class="col-md-2">Tax</div>
+                                    <div class="col-md-3">Total</div>
+                                </div>
+                                <div class="row rateHighlightsBody">
+                                    <div class="col-md-3">{{ActivityDate}}</div>
+                                    {{#NumberOfAdults}}
+                                    <div class="col-md-2">{{TotalAdultsPrice.CurrencyCode}}{{TotalAdultsPrice.Symbol}}{{TotalAdultsPrice.Amount}}</div>
+                                    
+                                    {{/NumberOfAdults}}
+                                    {{#TotalChildPrice}}
+                                    <div class="col-md-2"> {{TotalChildPrice.CurrencyCode}} {{TotalChildPrice.Symbol}} {{TotalChildPrice.Amount}}</div>
+                                    {{/TotalChildPrice}}
+                                    {{^TotalChildPrice}}
+                                    <div class="col-md-2"> </div>
+                                    {{/TotalChildPrice}}
+                                    {{#NumberOfUnits}}
+                                    <div class="col-md-2">{{TotalUnitPrice.CurrencyCode}}{{TotalUnitPrice.Symbol}}{{TotalUnitPrice.Amount}}</div>
+                                    {{/NumberOfUnits}}
+                                    <div class="col-md-2">{{Tax.Amount}}{{Tax.Symbol}}</div>
+                                    <div class="col-md-3">{{TotalPrice.Amount}}{{TotalPrice.Symbol}}</div>
+                                </div>
+                            </td>
+                        </tr>
+                        
+                    </table>
+                </td>
+            </tr>
+            {{/PricedActivityDetails}}
+
+            <!--if there is total price-->
+            {{#TotalPrice}}
+            <tr>
+                <td>
+                    <div class="row rateHighlightsHead">
+                        <div class="col-md-8">Grand Total</div>
+                        <div class="col-md-2">{{TotalPrice.CurrencyCode}} {{TotalPrice.Symbol}} {{TotalPrice.Amount}}</div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <!--<div class="pull-right"> <button id="btnQues" type="button" onClick="onButtonClick();" value="Submit" style="width:100px; margin-right:15px;">Submit</button>  </div>-->
+                        <!--<div class="pull-right"> <input id="btnQues" type="button" class="btn btn-primary" value="Proceed" style="width:100px; margin-right:15px;" /> </div>-->
+                    <div class="pull-right buttongroup">
+                        <button title="Quote" type="button" onclick="onQuoteButtonClick();" class="btn btn-primary on-quote-only-click" style="margin-right: 8px;">Quote</button>
+
+                    </div>
+                
+                </td>
+            </tr>
+            {{/TotalPrice}}
+            {{/Results}}
+
+            <!--If there is no result-->
+            {{^Results}}
+            No activity selected
+            {{/Results}}
+        </table>
+        
+
+    </script>
+    <link href="bower_components/assets/css/activityresult.css " rel="stylesheet " />
+    <script src="bower_components/assets/js/Jquery/jquery-2.0.3.min.js "></script>
+    <script src="bower_components/assets/js/libs/underscore.js "></script>
+    <script src="bower_components/assets/js/libs/backbone.js "></script>
+    <script src="bower_components/assets/js/libs/mustache.min.js "></script>
+    <script src="bower_components/app/common.js "></script>
+    <script src="bower_components/app/newPrice.js "></script>
+</body>
+
+</html>

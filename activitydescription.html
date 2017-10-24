@@ -1,0 +1,256 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Activity Details</title>
+    <meta charset="utf-8" />
+    <meta charset="utf-8" />
+    <link rel="shortcut icon" type="image/png" href="img/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="" />
+    <meta name="author" content="aDX" />
+    <link href="bower_components/assets/css/mui.css" rel="stylesheet" />
+    <link href="bower_components/assets/css/font-awesome.css" rel="stylesheet" />
+    <link href="bower_components/assets/css/select2.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="totalstaybooking">
+        <div class="contentBlock">
+            <div title="" class="header bsiLogo">
+                <img id="loginpageTitle" onclick="window.location = 'index.html'; return false;" src="img/travel-edge-adx.small.png" alt="Logo" />
+            </div>
+            <div id="Reg" class="box box-noborder">
+                <div class="box-header">
+                    <h3>Activity Details</h3>
+                    <div id ="SearchCriteriaPlaceHolder"></div>
+                </div>
+                <div class="box-content" id="maincontainer">
+                    <div class="box-content-margin">
+                        <form id="RegMetadata" class="form-float">
+                            <div class="span12" id="historyDiv">
+                                <div class="historical-wrapper">
+                                    <div class="widget-loading" style="display: block;text-align: center;margin-top: auto;margin-top: 5%;margin-bottom: auto;vertical-align: middle;">
+                                        <div class="title">Please wait while we process your request.</div>
+                                        <div>
+                                            <img src="img/loading-bar.gif" alt="Loading." title="Loading...">
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="box-footer">
+                    <div class="pull-right buttongroup">
+                        <input id="Back" class="btn btn-small" onclick="window.location = 'index.html'; return false;" value="Back" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<script id="tmpl-search-criteria" type="text/mustache-template">
+
+                    <div style="background-color: #E0E6E8; padding: 11px; border-radius: 5px;">
+						<table style="width:100%">
+							<tr>
+								<td class="pagesearchheaderName">DESTINATION</td>
+								<td class="pagesearchheaderValue">{{Destination.Description}}</td>
+								<td class="pagesearchheaderName">POPULARITY</td>
+								<td class="pagesearchheaderValue">{{MinRating}} - {{MaxRating}} Stars</td>
+							</tr>
+							<tr>
+								<td class="pagesearchheaderName">START DATE</td>
+								<td class="pagesearchheaderValue">{{StartDate}}</td>
+								<td class="pagesearchheaderName">END DATE</td>
+								<td class="pagesearchheaderValue">{{EndDate}}</td>
+							</tr>
+						</table>
+					</div>
+</script>
+<script id="tmpl-activity-description" type="text/mustache-template">
+        {{#activityDetail}}
+
+        <table cellpadding="0" cellspacing="0" border="0" width="100%" class="bordersActivities">
+            <tbody>
+                <tr>
+                    <td align="left" style="padding: 8px;">
+
+                        <table class="table table-borderless">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Category</th>
+                                    <th>Rating</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{ActivityName}}</td>
+                                    <td>{{CategoryName}}</td>
+                                    <td valign="top">
+                                        <img src="img/{{Rating}}Stars.gif" />
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <thead>
+                                <tr>
+                                    <th>Location</th>
+                                    <th>Address</th>
+                                    <th>Phone Number</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <p>
+                                            Latitude: {{Location.Latitude}}<br />
+                                            Latitude: {{Location.Longitude}}
+                                        </p>
+                                    </td>
+                                    <td>
+                                        {{#Address}}
+                                        <p>
+                                            {{#Address1}}
+                                            Address Line 1: {{Address1}}<br />
+                                            {{/Address1}}
+                                            {{#Address2}}
+                                            Address Line 1: {{Address2}}<br />
+                                            {{/Address2}}
+                                            {{#City}}
+                                            City: {{City}}<br />
+                                            {{/City}}
+                                            {{#Subdivision}}
+                                            State: {{Subdivision}}<br />
+                                            {{/Subdivision}}
+                                            {{#Country}}
+                                            Country: {{Country}}<br />
+                                            {{/Country}}
+                                            {{#Zip}}
+                                            Zip: {{Zip}}<br />
+                                            {{/Zip}}
+                                        </p>
+                                        {{/Address}}
+                                    </td>
+                                    <td>{{PhoneNumber}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <br>
+                    </td>
+                    <td>&nbsp;</td>
+                </tr>
+            </tbody>
+        </table>
+        <br />
+        <br />
+
+        <table cellpadding="0" cellspacing="0" border="0" width="100%" class="bordersActivities">
+            <tbody>
+                <tr>
+                    <td style="padding: 8px;">
+                        <b style="font-weight: bold !important">
+                            Media Images
+                        </b>
+                    </td>
+                    <td style="padding-left:10px;"></td>
+                </tr>
+                <tr>
+                    <td align="left" style="padding: 8px;">
+                        <div style="max-width: 1050px;overflow: auto;overflow-y: hidden;">
+                            <table cellpadding="0" cellspacing="0">
+                                <tbody>
+                                    <tr>
+                                        {{#DetailedDescription.MediaDetail.MediaImages}}
+                                        <td class="photo_bg">
+                                            <img name="imgActivityThumb" src="{{.}}" border="0" style="height: 200px; width: 200px;">
+                                        </td>
+                                        <td style="padding-left:10px;"></td>
+                                        {{/DetailedDescription.MediaDetail.MediaImages}}
+
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <br>
+                    </td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px;">
+                        <b style="font-weight: bold !important">
+                            Media Videos
+                        </b>
+                    </td>
+                    <td style="padding-left:10px;"></td>
+                </tr>
+                <tr>
+                    <td align="left" style="padding: 8px;">
+                        <div style="max-width: 1050px;overflow: auto;overflow-y: hidden;">
+                            <table cellpadding="0" cellspacing="0">
+                                <tbody>
+                                    <tr>
+                                        {{#DetailedDescription.MediaDetail.MediaMovie}}
+                                        <td class="photo_bg">
+                                            <iframe width="420" height="315" src="{{.}}" frameborder="0" allowfullscreen></iframe>
+                                        </td>
+                                        <td style="padding-left:10px;"></td>
+                                        {{/DetailedDescription.MediaDetail.MediaMovie}}
+
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <br>
+                    </td>
+                    <td>&nbsp;</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <br />
+        <br />
+        <table cellpadding="0" cellspacing="0" border="0" width="100%" class="bordersActivities">
+            <tbody>
+                <tr>
+                    <td style="padding: 8px;">
+                        <b style="font-weight:bold !important;">Description</b><br>
+                        <span style="white-space: pre-line">
+                            {{{ShortDescription}}}
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px;">
+                        <b style="font-weight:bold !important;padding-bottom:12px;">Voucher Remarks</b>
+                        <span style="white-space: pre-line">
+                            {{{DetailedDescription.LongDescription.VoucherRemarks}}}
+                        </span>
+                    </td>
+                </tr>
+                {{#DetailedDescription.LongDescription.DescriptionParts}}
+                <tr>
+                    <td style="padding: 8px;">
+                        <b style="font-weight:bold !important;">{{Type}}</b>
+                        <span style="white-space: pre-line">
+                            {{{Details}}}
+                        </span>
+                    </td>
+                </tr>
+                {{/DetailedDescription.LongDescription.DescriptionParts}}
+            </tbody>
+        </table>
+
+
+        {{/activityDetail}}
+
+    </script>
+    <link href="bower_components/assets/css/activityresult.css" rel="stylesheet" />
+    <script src="bower_components/assets/js/Jquery/jquery-2.0.3.min.js">
+    </script>
+    <script src="bower_components/assets/js/libs/underscore.js"></script>
+    <script src="bower_components/assets/js/libs/backbone.js"></script>
+    <script src="bower_components/assets/js/libs/mustache.min.js"></script>
+    <script src="bower_components/app/activitydescription.js"></script>
+	<script src="bower_components/app/common.js"></script>
+</body>
+</html>

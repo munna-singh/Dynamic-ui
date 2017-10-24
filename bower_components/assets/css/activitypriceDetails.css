@@ -1,0 +1,140 @@
+.te-notification.alert-warning {
+    color: #FFFFFF;
+    background-color: #EFAC4D;
+}
+.te-sm-notification {
+    padding: 12px 30px 10px 50px;
+}
+.alert-warning {
+    background-color: #fcf8e3;
+    border-color: #faebcc;
+    color: #c09853;
+}
+.label-offered {
+    background-color: #C688BB;
+}
+
+
+.panel-default {
+    border-color: #CAD3D8;
+}
+.ice-grey {
+    background-color: #E0E6E8;
+}
+.details {
+    font-family: "Open Sans", "Helvetica Neue", Arial, sans-serif;
+    color: #858C8E;
+    font-size: 12px;
+    text-transform: uppercase;
+}
+.panel {
+    margin-bottom: 20px;
+    background-color: #ffffff;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+    .service-list-icon {
+    padding-top: 2px;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    vertical-align: middle;
+    background-color: #AFB8BD;
+    color: #FFFFFF;
+    border-radius: 5px;
+    font-size: 24px;
+    float: left;
+}
+.service-list-title {
+    float: left;
+    margin-left: 8px;
+}
+.service-list-status {
+    float: right;
+    margin-top: 9px;
+}
+.label-status {
+    font-family: "Open Sans Condensed", "Helvetica Neue Condensed", Arial Condensed, sans-serif-condensed;
+    font-weight: bold;
+    font-size: 11px;
+    padding: 0 3px;
+    line-height: 18px;
+    border-radius: 0;
+    text-transform: uppercase;
+    min-width: 56px;
+    display: inline-block;
+    height: 18px;
+    text-align: center;
+    color: #FFFFFF;
+}
+
+ .panel-heading {
+        color: #FFFFFF;
+        background-color: #AFB8BD;
+        border-color: #CAD3D8;
+    }
+.activityPriceDetailsBold {
+    font-family: "Open Sans", "Helvetica Neue", Arial, sans-serif;
+    color: black;
+    font-size: 10px;
+    text-transform: uppercase;
+    font-weight: bold;
+    padding-bottom:10px;
+}
+.questions {
+    font-family: "Open Sans", "Helvetica Neue", Arial, sans-serif;
+    color: black;
+    font-size: 10px;
+    text-transform: uppercase;
+    font-weight: bold;
+    padding-bottom: 10px;
+}
+.quesText {
+    font-family: "Open Sans", "Helvetica Neue", Arial, sans-serif;
+    color: black;
+    font-size: 12px;
+    text-transform: uppercase;
+    padding-bottom: 10px;
+}
+.activityCancellationPolicy {
+    color: #FFFFFF;
+    background-color: #EFAC4D;
+    vertical-align: top;
+    margin-bottom:20px;
+    padding:5px;
+}
+.rateHighlightsHead {
+    background-color: #AFB8BD;
+    font-size: 14px;
+    color: #FFFFFF;
+    font-weight: bold;
+    border: 1px solid #CAD3D8;
+    margin-right: -9px !important;
+}
+.rateHighlightsBody {
+    border: 1px solid #CAD3D8;
+    background-color: #E0E6E8;
+    color: #4D4D4D;
+    margin-right: -9px !important;
+}
+.rate-row {
+    border: 1px solid #CAD3D8;
+    background-color: #E0E6E8;
+    color: #4D4D4D;
+}
+.body {
+    font-family: "Open Sans", "Helvetica Neue", Arial, sans-serif;
+    font-weight: normal;
+    padding-top: 60px;
+    color: #4D4D4D;
+    background-color: #F8F9F9;
+}
+.InfantsAged {
+    padding: 2px 5px;
+    color: blue;
+    font:italic;
+}
+.priceRow {
+    margin-right: 0px;
+    margin-left: -3px;
+}
