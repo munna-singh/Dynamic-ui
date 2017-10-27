@@ -12,9 +12,9 @@
     <link href="bower_components/assets/css/font-awesome.css" rel="stylesheet" />
     <link href="bower_components/assets/css/select2.css" rel="stylesheet" />
 	<link href="bower_components/assets/css/search.css" rel="stylesheet" />
+	<script src="//maps.googleapis.com/maps/api/js?v=3.23&libraries=places&key=AIzaSyAgV9-OY_dxY6-ixsB8quvHC_ZFI9JtZK4" type="text/javascript"></script>
 </head>
-<body>
-
+<body>	
     <div class="totalstaybooking">
         <div class="contentBlock">
             <div title="" class="header bsiLogo">
@@ -41,10 +41,7 @@
                                     <div class="control-group">
                                         <label class="control-label" for="destination">Destination</label>
                                         <div class="controls">
-                                            <input type="text" name="destination" id="destination" placeholder="Search for airport" class="form-control" required="required" />
-                                            <input type="hidden" name="Latitude" id="Latitude" class="form-control" required="required" />
-                                            <input type="hidden" name="IATACode" id="IATACode" class="form-control" required="required" />
-                                            <input type="hidden" name="Longitude" id="Longitude" class="form-control" required="required" />
+                                            <input type="text" name="destination" id="destination" placeholder="Search for airport" class="form-control destination-typeahead" required="required" style="width:300px" />										
                                         </div>
                                     </div>
                                     <div class="control-group">
@@ -123,6 +120,12 @@
                                     </div>
                                 </div>
                             </div>
+							 <div class="box-footer">
+                    <div class="pull-right buttongroup">
+                        <input id="Back" class="btn btn-small" onclick="window.location = 'Search.html'; return false;" value="Cancel" />
+                        <input id="registerbtn" class="btn btn-medium btn-primary" value="Search" />
+                    </div>
+                </div>
                         </form>
                     </div>
                     <div class="saving" id="showhideprogress" style="display: none">
@@ -131,13 +134,7 @@
                             <span>Saving...</span>
                         </div>
                     </div>
-                </div>
-                <div class="box-footer">
-                    <div class="pull-right buttongroup">
-                        <input id="Back" class="btn btn-small" onclick="window.location = 'Search.html'; return false;" value="Cancel" />
-                        <input id="registerbtn" class="btn btn-medium btn-primary" value="Search" />
-                    </div>
-                </div>
+                </div>               
 				<div>
 					<p class="quote-header">Your recent bookings</p>
 					<div id= "travel-service-quotes">
