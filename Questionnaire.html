@@ -46,10 +46,10 @@
 					<table width="100%">
 						<tr>
 							<td>
-								<input id="Back" class="btn btn-small" onclick="window.location = 'index.html'; return false;" value="Back" />
+								<input id="Back" class="btn btn-small" onclick="window.location = 'ActivityRateDetails.html'; return false;" style="margin-left: 10px;margin-bottom: 5px;" value="Back" />
 							</td>
 							<td style="text-align:right">
-								<button id="bookbtn"title="Book" type="button" onclick="onBookButtonClick();" disabled="" class="btn btn-small btn btn-primary on-quote-only-click" style="width:150px;">Book</button>
+								<button id="bookbtn"title="Book" type="button" onclick="onBookButtonClick();" disabled="" class="btn btn-small btn btn-primary on-quote-only-click" style="width:150px;margin-right: 48px;">Book</button>
 							</td>							
 						</tr>
 					</table>                   
@@ -79,23 +79,23 @@
 
     <script id="tmpl-activity-price-descriptions" type="text/mustache-template">
 
-        <div id="contactClient" class="cotainer" style="background-color: #E0E6E8;  height: 170px; ">
-            <div class="row" style="padding-top: 3px;">
+        <div id="contactClient" class="cotainer" style="background-color: #E0E6E8; height:fit-content; ">
+            <div class="row" style="padding-top: 7px;">
 
                 <div class="col-sm-2">
-                    <label class="travellerName" style="padding-left: 10px;">Client: </label>
+                    <label class="travellerName" style="padding-left: 10px;margin-top: 5px;">Client: </label>
                 </div>
                 <div class="col-sm-6">
-                    <input type="text"  name="clientSearch" id="clientSearch" placeholder="Search for client" class="form-control" required="required">
+                    <input type="text"  name="clientSearch" id="clientSearch" placeholder="Search for client" class="form-control" style="height: 29px;font-size: 13px;" required="required">
                 </div>
                 <div class="col-md-4">
-                    <button class="travellerName" onclick="onSearchButtonClick()" type="button">Search</button>
+                    <button class="travellerName" onclick="onSearchButtonClick()" style="margin-top: 3px;" type="button">Search</button>
                 </div>
 
 
 
             </div>
-            <div class="row" style="margin-top:5px">
+            <div class="row" id="personalInformationPlaceHolder" style="margin-top:5px">
                 <div class="col-sm-1">
                     <div style="float: left; width: 65px; margin-left: 5px;">
                         <label class="travellerName">Title</label>
@@ -310,7 +310,7 @@
 
                 </div>
             </div>
-            <div class="row">
+            <div class="row" id="phoneNumberPlaceHolder">
                 <div class="col-md-6">
                     <div style="float: right; width: 183px; margin-right: -81px;">
                         <label class="travellerName">Phone Number</label>
@@ -612,7 +612,7 @@
 
                                             <div class="col-md-12">
                                                 {{#Properties.MaximumLength}}
-                                                <input id ="ans"class="form-control de-form-control" rows="1" name="Answer" maxlength="{{Properties.MaximumLength}}">
+                                                <input id ="ans"class="form-control de-form-control" rows="1" name="Answer" maxlength="{{Properties.MaximumLength}}" required>
                                                 {{/Properties.MaximumLength}}
                                             </div>
 

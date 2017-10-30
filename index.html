@@ -154,17 +154,17 @@
         {{/activities}}
     </script>
 	<script id="tmpl-search-quotes" type="text/mustache-template">
-		<table width="100%" style="border-width:2px">
-			<th class="left-align">Quote Id</th>
-			<th class="left-align">Name</th>
-			<th class="left-align">Ref. #</th>
-			<th class="left-align">Client</th>
+		<table width="100%" style="border-width:2px;table-layout: fixed;">
+			<th class="left-align" style="width: 120px;">Quote Id</th>
+			<th class="left-align" style="width: 430px;">Name</th>
+			<th class="left-align" style="width: 140px;">Ref. #</th>
+			<th class="left-align"style="width: 230px;">Client</th>
 			<th class="left-align">Agent</th>
 		
 		{{#Results}}	
 		<tr>
 			<td class="quote-table-column">{{QuoteId}}</td>
-			<td>{{Name}}</td>
+			<td class="elipsis-column" style="padding-right: 20px;">{{Name}}</td>
 			<td>{{AdxRefNum}}</td>
 			<td>{{Client.DisplayName}}</td>
 			<td>{{AgentName}}</td>
