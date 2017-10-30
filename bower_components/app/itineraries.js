@@ -36,7 +36,7 @@ var targetContainer = $(".historical-wrapper"),
     var summary = JSON.parse(window.localStorage.getItem("getQuote"));
 
     for (var i = 0; i < summary.ActivityTravelServices.length; i++) {
-        summary.ActivityTravelServices[i]["DisplayContactName"] = summary.Contact.Title + " " + summary.Contact.DisplayName;
+        summary.ActivityTravelServices[i]["DisplayContactName"] = summary.Contact == null ? "" : summary.Contact.Title + " " + summary.Contact.DisplayName;
         summary.ActivityTravelServices[i]["ActivityName"] = activityNames.ActivityNames[i];
         summary.ActivityTravelServices[i]["ActivityDate"] = summary.ActivityTravelServices[i].ActivityDate.replace("T00:00:00", "");
         summary.ActivityTravelServices[i]["StartDate"] = summary.ActivityTravelServices[i].StartDate.replace("T00:00:00", "");
