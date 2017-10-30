@@ -229,26 +229,10 @@ function onBookButtonClick() {
 
 }
 
-function getQuoteBooked() {
-    $.ajax({
-        url: "../api/quotes/" + quote.quote.QuoteId + "?includeDetails=false&includeSuggestions=true&tefsInvoices=false",
-        type: "GET",
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: function (results) {
-            if (results != null) {
-                Storage.prototype.setObject("getQuote", results);
-
-                window.location = "../activity/itineraries.html";
-            }
-
-
-
-        },
-       
-    });
-
+function getQuoteBooked() {  
+    window.location = "../activity/itineraries.html?QuoteId=" + quote.quote.QuoteId;
 }
+
 function getQuoteNoBook() {
     $.ajax({
         url: "../api/quotes/" + quote.quote.QuoteId + "?includeDetails=false&includeSuggestions=true&tefsInvoices=false",

@@ -11,3 +11,7 @@
 	text-align:left;
 	margin-left:2px;
 }
+.quote-link{
+    text-decoration: underline;
+    cursor: pointer;
+}
