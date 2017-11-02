@@ -11,3 +11,12 @@
 	text-align:left;
 	margin-left:2px;
 }
+.elipsis-column {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.quote-link {
+    text-decoration: underline;
+    cursor: pointer;
+}

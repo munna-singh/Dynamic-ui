@@ -70,6 +70,8 @@ var searchtoken = JSON.parse(window.localStorage.getItem("token"));
 window.onload = function () { title() };
 window.onload = function () { findClients() };
 window.onload = function () {
+    $("#personalInformationPlaceHolder").hide();
+    $("#phoneNumberPlaceHolder").hide();
     var searchCriteria = Storage.prototype.getObject("searchCriteria");
     var htmSearch = Mustache.render(searchTemplate, searchCriteria);
     self.$("#SearchCriteriaPlaceHolder").html(htmSearch);
@@ -115,6 +117,8 @@ function onSearchButtonClick() {
         dataType: "json",
         success: function (results) {
             if (results != null) {
+                $("#personalInformationPlaceHolder").show();
+                $("#phoneNumberPlaceHolder").show();
                 client.push(results);
                 addClientToQuote();
             }
@@ -225,26 +229,10 @@ function onBookButtonClick() {
 
 }
 
-function getQuoteBooked() {
-    $.ajax({
-        url: "../api/quotes/" + quote.quote.QuoteId + "?includeDetails=false&includeSuggestions=true&tefsInvoices=false",
-        type: "GET",
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: function (results) {
-            if (results != null) {
-                Storage.prototype.setObject("getQuote", results);
-
-                window.location = "../activity/itineraries.html";
-            }
-
-
-
-        },
-       
-    });
-
+function getQuoteBooked() {  
+    window.location = "../activity/itineraries.html?QuoteId=" + quote.quote.QuoteId;
 }
+
 function getQuoteNoBook() {
     $.ajax({
         url: "../api/quotes/" + quote.quote.QuoteId + "?includeDetails=false&includeSuggestions=true&tefsInvoices=false",

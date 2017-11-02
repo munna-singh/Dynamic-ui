@@ -176,7 +176,7 @@ function onQuoteButtonClick() {
      return newFormat
  };
    
- for (var i = 0; i < searchqualifierSelected.length - 1; i++) {
+ for (var i = 0; i <= searchqualifierSelected.length - 1; i++) {
     TravelServices.push({
         "TravelServiceTypeId": 8,
         "ActivitySearchQualifier": searchqualifierSelected[i],
@@ -198,7 +198,7 @@ function onQuoteButtonClick() {
     });
 }
  var quoteName = "";
- for (var i = 0; i < searchqualifierSelected.length - 1; i++) {
+ for (var i = 0; i <= searchqualifierSelected.length - 1; i++) {
      quoteName = quoteName + selectedActivitiesQS[0][0].PricedActivityDetails[i].OptionName + "|";
 }
 
