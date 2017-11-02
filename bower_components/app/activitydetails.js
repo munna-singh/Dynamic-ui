@@ -6,6 +6,8 @@
  *
  * Author: Viniston Fernando
  */
+
+var ratings = { "rating": JSON.parse(window.localStorage.getItem("searchCriteria")) }
 $(document)
     .ready(function() {
             var searchQualifierList = [];
@@ -75,6 +77,8 @@ $(document)
                 return toJsonModel;
             },
 
+           
+
             doAvailabilitySearch: function(e) {
                 var template,
 					searchTemplate,
@@ -84,8 +88,8 @@ $(document)
                 var dataInput = {
                     "MinPrice": null,
                     "MaxPrice": null,
-                    "MinRating": 0,
-                    "MaxRating": 5,
+                    "MinRating": ratings.rating.MinRating,
+                    "MaxRating": ratings.rating.MaxRating,
                     "MinDistance": null,
                     "MaxDistance": null,
                     "ActivityName": "",
