@@ -7,6 +7,74 @@
  * Author: Viniston Fernando
  */
 
+
+
+function setOptions(act) {
+     
+    
+
+    for (var j = 0; j < act.length; j++) {
+        var activityCode = act[j].ActivityInfo.ActivityCode;
+
+        for (var k = 0; k < act[j].ActivityInfo.ActivityOptions.length; k++) {
+
+
+
+
+            var maxAdult = act[j].ActivityInfo.ActivityOptions[k].MaxAdultAllowed;
+            var maxChild = act[j].ActivityInfo.ActivityOptions[k].MaxChildAllowed;
+            var maxUnit = act[j].ActivityInfo.ActivityOptions[k].MaxUnitAllowed;
+
+
+
+            if (maxUnit != 0) {
+                var options = '';
+                for (i = 1; i <= maxUnit; i++) {
+
+                    options += '<option value="' + i + '">' + i + '</option>';
+                }
+                //return options;
+
+                var unitOptionId = "#ddlActivityUnits_" + activityCode;
+                var sel = $(unitOptionId);
+                sel.empty().append(options);
+            }
+            else {
+                var optionsForAdult = '';
+                var optionsForChild = '';
+                for (i = 1; i <= maxAdult; i++) {
+                    optionsForAdult += '<option value="' + i + '">' + i + '</option>';
+
+
+                }
+                for (i = 0; i <= maxChild; i++) {
+                    optionsForChild += '<option value="' + i + '">' + i + '</option>';
+
+                }
+
+                //return options;
+                //return optionsForChild;
+
+                var adultOptionId = "#ddlActivityAdults_" + activityCode;
+                var childOptionId = "#ddlActivityChilds_" + activityCode;
+                var sel1 = $(adultOptionId);
+                var sel2 = $(childOptionId);
+                sel1.empty().append(optionsForAdult);
+                sel2.empty().append(optionsForChild);
+               
+
+
+            }
+
+
+        }
+
+    }
+
+}
+
+var act;
+
 var ratings = { "rating": JSON.parse(window.localStorage.getItem("searchCriteria")) }
 $(document)
     .ready(function() {
@@ -48,6 +116,7 @@ $(document)
             groupActivityCategory: function (activities) {
                 var self = this, activityOption = {};
                 activities = activities.Results;
+                act = activities;
                 var activityGroupColection = [], toJsonModel = { ActivityGroup: [] }, activity = {}, i;
                 for (i = 0; i < activities.length; i++) {
                     var isExist = $.grep(activityGroupColection,
@@ -66,7 +135,14 @@ $(document)
                         activity.ShowUnitPrice = activityOption && activityOption.OptionType === 1;
                         activity.ShowDiscount = activities[i].ActivityInfo.SpecialOffer ? true : false;
                         activity.ShowChildPrice = activityOption && activityOption.OptionType !== 1;
+                        //if (activity.ShowUnitPrice == true) {
+                        //    var a = setOptions(activities);
+                        //    activity.unitOption = a;
+                        //}
+                       
                         activity.AvailabilityDates = self.findAvailabilityDates(activities[i].ActivityInfo.ActivityOptions);
+
+                        
                         activity.ActivityInfo.push(activities[i].ActivityInfo);
                         activityGroupColection.push(activity);
                     } else {
@@ -74,6 +150,7 @@ $(document)
                     }
                 }
                 toJsonModel.ActivityGroup = activityGroupColection;
+               
                 return toJsonModel;
             },
 
@@ -114,9 +191,11 @@ $(document)
 							var searchCriteria = Storage.prototype.getObject("searchCriteria");
 							 var htmSearch = Mustache.render(searchTemplate, searchCriteria);
 							 self.$("#SearchCriteriaPlaceHolder").html(htmSearch);
-				 
-                            var htm = Mustache.render(template, self.groupActivityCategory(e));
+                            
+                             var htm = Mustache.render(template, self.groupActivityCategory(e));
+                            
                             self.$("#activityholder").html(htm);
+                            setOptions(act);
                             self.applyActivityOptionsAlternateRowColor();
                             self.initControls();
                         }
