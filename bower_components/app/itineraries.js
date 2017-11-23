@@ -15,16 +15,24 @@ $(document)
                 dataType: "json",
                 success: function (results) {
                     if (results != null) {
-                        Storage.prototype.setObject("getQuote", results);
+                        //Storage.prototype.setObject("getQuote", results);
+                        //console.log(results);
+
+                        getQuoteRes(results);
                     }
                 },
             });
         }
     });
 
-var targetContainer = $(".historical-wrapper"),
-  
-    template = $("#tmpl-activity-price-descriptions").html();
+var quoteID;
+var contactId;
+
+function getQuoteRes(results) {
+
+    var targetContainer = $(".historical-wrapper"),
+
+        template = $("#tmpl-activity-price-descriptions").html();
 
     QStemplate = $("#tmpl-activity-price-descriptions").html();
 
@@ -32,19 +40,149 @@ var targetContainer = $(".historical-wrapper"),
 
     var activityNames = { "ActivityNames": JSON.parse(window.localStorage.getItem("ActivityNames")) };
 
-    var  searchTemplate = $("#tmpl-search-criteria").html();
-    var summary = JSON.parse(window.localStorage.getItem("getQuote"));
-
+    var searchTemplate = $("#tmpl-search-criteria").html();
+    var summary = results;
+    quoteID = summary.QuoteId;
+    if (summary.Contact != null){
+        contactId = summary.Contact.ContactId;
+    }
     for (var i = 0; i < summary.ActivityTravelServices.length; i++) {
+        var status = this.GetBookingStatus(summary.ActivityTravelServices[i].TravelServiceStatusId);
+        summary.ActivityTravelServices[i]["Status"] = status[0];
+        summary.ActivityTravelServices[i]["Color"] = status[1];
+        summary.ActivityTravelServices[i]["IsBookEnable"] = summary.ActivityTravelServices[i].TravelServiceStatusId === 1;
+        summary.ActivityTravelServices[i]["IsCancelEnable"] = summary.ActivityTravelServices[i].TravelServiceStatusId === 3 || summary.ActivityTravelServices[i].TravelServiceStatusId === 23;
         summary.ActivityTravelServices[i]["DisplayContactName"] = summary.Contact == null ? "" : summary.Contact.Title + " " + summary.Contact.DisplayName;
-        summary.ActivityTravelServices[i]["ActivityName"] = activityNames.ActivityNames[i];
+        summary.ActivityTravelServices[i]["ActivityName"] = summary.ActivityTravelServices[i].Detail.ActivityName;
         summary.ActivityTravelServices[i]["ActivityDate"] = summary.ActivityTravelServices[i].ActivityDate.replace("T00:00:00", "");
         summary.ActivityTravelServices[i]["StartDate"] = summary.ActivityTravelServices[i].StartDate.replace("T00:00:00", "");
         summary.ActivityTravelServices[i]["EndDate"] = summary.ActivityTravelServices[i].EndDate.replace("T00:00:00", "");
     }
 
-   var details = { "details": summary };
-   var html = Mustache.to_html(template, details);
-   $(".historical-wrapper").html(html);
+    var details = { "details": summary };
+    var html = Mustache.to_html(template, details);
+    $(".historical-wrapper").html(html);
 
-   
+
+}
+
+
+function GetBookingStatus(statuId) {
+    var serviceStatus = [];
+
+    switch (statuId) {
+        case 1:
+            serviceStatus.push("OFFERED");
+            serviceStatus.push("#c688bb");
+
+            break;
+        case 3:
+            serviceStatus.push("BOOKED");
+            serviceStatus.push("#822678");
+
+            break;
+        case 23:
+            serviceStatus.push("BOOKED-NOPAY");
+            serviceStatus.push("#822678");
+
+            break;
+        case 5:
+            serviceStatus.push("CANCELED");
+            serviceStatus.push("#afb8bd");
+            break;
+        case 22:
+            serviceStatus.push("BOOKEDRESERVED");
+            serviceStatus.push("#afb8bd");
+            break;
+        case 16:
+            serviceStatus.push("PENDING CANCEL");
+            serviceStatus.push("#d9534f");
+            break;
+
+    }
+
+
+    return serviceStatus;
+}
+
+function actualTSP() {
+
+    window.open("../itineraries/" + quoteID, '_blank');
+
+}
+
+
+function returnBookRequest(TravelServiceId) {
+
+    var searchtoken = JSON.parse(window.localStorage.getItem("token"));
+
+    var dataInputAddClientToBook = {
+        "SessionId": null,
+        "QuoteId": quoteID,
+        "TravelServiceId": TravelServiceId,
+        "Token": searchtoken,
+        "ContactTravelerId": contactId
+    };
+    return dataInputAddClientToBook;
+}
+
+var numOfBooking = 0;
+
+function onBookButtonClick(tsid) {
+
+
+    $.ajax({
+        url: "../api/quotes/" + quoteID + "/travelservices/" + tsid + "/activity/book",
+        type: "POST",
+        data: JSON.stringify(returnBookRequest(tsid)),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (results, status) {
+            if (results != null && status === "success") {
+                window.location = "../activity/itineraries.html?QuoteId=" + quoteID;
+            }
+        },
+        error: function (result) {
+            window.location = "../activity/itineraries.html?QuoteId=" + quoteID;
+
+        }
+
+    });
+
+
+
+}
+
+function bookFromTSP(e) {
+    var tsID = e.getAttribute("id");
+    btnSpin(tsID);
+    onBookButtonClick(tsID);
+}
+
+var a = { "Remarks": "cancel" }
+function doCancel(cn) {
+
+    var tsID = cn.getAttribute("id");
+    btnSpin(tsID);
+
+    $.ajax({
+        url: "../api/quotes/" + quoteID + "/travelservices/" + tsID + "/activity/cancelpnr",
+        type: "POST",
+        data: JSON.stringify(a),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (results, status) {
+            if (results != null && status === "success") {
+                window.location = "../activity/itineraries.html?QuoteId=" + quoteID;
+            }
+        },
+        error: function (result) {
+            window.location = "../activity/itineraries.html?QuoteId=" + quoteID;
+
+        }
+
+    });
+
+}
+
+

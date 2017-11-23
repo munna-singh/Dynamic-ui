@@ -150,7 +150,7 @@ $(document)
                     "MaxRating": dataObj.MaxRating,
                     "AgentId": self.getSelectedAgents("user","AgentId"),
                     "Currency": "USD",
-                    "ProviderType": "1",
+                    "ProviderType": dataObj.ProviderType,
                     "QuoteOwners": [
                         {
                             "DelegatorFirstName": "System",

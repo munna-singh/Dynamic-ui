@@ -1,6 +1,5 @@
 ﻿<!DOCTYPE html>
 <html>
-
 <head>
     <title>Activity Details</title>
     <meta charset="utf-8" />
@@ -14,11 +13,11 @@
     <link href="bower_components/assets/css/font-awesome.css" rel="stylesheet" />
     <link href="bower_components/assets/css/select2.css" rel="stylesheet" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
-
 <body>
     <div class="totalstaybooking">
         <div class="contentBlock">
@@ -28,42 +27,65 @@
             <div id="Reg" class="box box-noborder">
                 <div class="box-header">
                     <h3>CLIENT AND ACTIVITY SERVICE TRAVELERS</h3>
-
                     <div id="SearchCriteriaPlaceHolder"></div>
-
                 </div>
                 <div class="box-content" id="maincontainer">
                     <div class="box-content-margin">
                         <form id="RegMetadata" class="form-float">
                             <div class="span12" id="historyDiv">
                                 <div class="historical-wrapper">
+                                    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                                        <tbody>
+                                            <tr>
+                                                <td height="5px"></td>
+                                            </tr>
+                                            <tr>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div id="searchResultsDiv" style="visibility: visible;">
+                                                        <div id="activitySearchResults" style="width: 100%; visibility: visible;">
+                                                            <div id="activityholder">
+                                                                <div class="widget-loading" style="display: block;text-align: center;margin-top: auto;margin-top: 5%;margin-bottom: auto;vertical-align: middle;">
+                                                                    <div class="title">Please wait while we process your request.</div>
+                                                                    <div>
+                                                                        <img src="img/loading-bar.gif" alt="Loading." title="Loading...">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </form>
                     </div>
                 </div>
-                <div>                  
-					<table width="100%">
-						<tr>
-							<td>
-								<input id="Back" class="btn btn-small" onclick="window.location = 'ActivityRateDetails.html'; return false;" style="margin-left: 10px;margin-bottom: 5px;" value="Back" />
-							</td>
-							<td style="text-align:right">
-								<button id="bookbtn"title="Book" type="button" onclick="onBookButtonClick();" disabled="" class="btn btn-small btn btn-primary on-quote-only-click" style="width:150px;margin-right: 48px;display: none;">Book</button>
-							</td>							
-						</tr>
-					</table>                   
+                <div>
+                    <table width="100%">
+                        <tr>
+                            <td>
+                                <input id="Back" class="btn btn-small" onclick="window.location = 'ActivityRateDetails.html'; return false;" style="margin-left: 10px;margin-bottom: 5px;" value="Back" />
+                            </td>
+                            <td style="text-align:right">
+                                <button id="bookbtn" title="Book" type="button" onclick="onBookButtonClick();" disabled="" class="btn btn-small btn btn-primary on-quote-only-click" style="width:150px;margin-right: 48px;display: none;">Book</button>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
     <script id="tmpl-search-criteria" type="text/mustache-template">
-
         <div style="background-color: #E0E6E8; padding: 11px; border-radius: 5px;">
             <table style="width:100%">
                 <tr>
                     <td class="pagesearchheaderName">DESTINATION</td>
-                    <td class="pagesearchheaderValue">{{Destination.Description}}</td>
+                    <td class="pagesearchheaderValue">{{Destination.FormattedName}}</td>
                     <td class="pagesearchheaderName">POPULARITY</td>
                     <td class="pagesearchheaderValue">{{MinRating}} - {{MaxRating}} Stars</td>
                 </tr>
@@ -76,30 +98,26 @@
             </table>
         </div>
     </script>
-
     <script id="tmpl-activity-price-descriptions" type="text/mustache-template">
-
         <div id="contactClient" class="cotainer" style="background-color: #E0E6E8; height:fit-content; ">
             <div class="row" style="padding-top: 7px;">
-
                 <div class="col-sm-2">
                     <label class="travellerName" style="padding-left: 10px;margin-top: 5px;">Client: </label>
                 </div>
                 <div class="col-sm-6">
-                    <input type="text"  name="clientSearch" id="clientSearch" placeholder="Search for client" class="form-control" style="height: 29px;font-size: 13px;" required="required">
+                    <input type="text" name="clientSearch00" id="clientSearch00" placeholder="Search for client" class="form-control" style="height: 29px;font-size: 13px;" required="required">
                 </div>
                 <div class="col-md-4">
-                    <button class="travellerName" onclick="onSearchButtonClick()" style="margin-top: 3px;" type="button">Search</button>
+                    <button class="travellerName" onclick="onSearchButtonClick()" id="00" style="margin-top: 3px;" type="button">Search</button>
                 </div>
-
-
-
             </div>
             <div class="row" id="personalInformationPlaceHolder" style="margin-top:5px">
+                <!--<input id="isTravelling"class="travellerName" type="checkbox" onchange="onCheckBoxClick(this)"name="clienyTravel" value="" style=" margin-left: 950px;">is Travelling<br>
+                 -->
                 <div class="col-sm-1">
                     <div style="float: left; width: 65px; margin-left: 5px;">
                         <label class="travellerName">Title</label>
-                        <select id="Title" class="form-control de-form-control" name="Title">
+                        <select id="Title" class="form-control de-form-control" name="Title" value="">
                             <option value=""></option>
                             <option value="Mr.">Mr.</option>
                             <option value="Mrs.">Mrs.</option>
@@ -109,10 +127,8 @@
                             <option value="Miss">Miss</option>
                         </select>
                     </div>
-
                 </div>
                 <div class="col-sm-6">
-
                     <div style="float: left; width: 145px;height:auto; margin-left: 5px;">
                         <label class="travellerName">First Name</label>
                         <input type="text" class="de-form-control" style="height: 30px;" name="FirstName" id="FirstName" value="">
@@ -125,7 +141,6 @@
                         <label class="travellerName">Last Name</label>
                         <input type="text" class="de-form-control" style="height: 30px;" name="LastName" id="LastName" value="">
                     </div>
-
                 </div>
                 <div class="col-sm-3" style=" float: left; width: auto; margin-left: auto;">
                     <label style=" display:block;" class="travellerName">Date of Birth</label>
@@ -164,10 +179,9 @@
                             <option value="30">30</option>
                             <option value="31">31</option>
                         </select>
-
                     </div>
                     <div style="display: inline;">
-                        <select id="mm"class="month form-control de-form-control" style="width: auto; float: left; width: 60px; margin-left: 10px; ">
+                        <select id="mm" class="month form-control de-form-control" style="width: auto; float: left; width: 60px; margin-left: 10px; ">
                             <option value=""></option>
                             <option value="0">Jan</option>
                             <option value="1">Feb</option>
@@ -182,11 +196,9 @@
                             <option value="10">Nov</option>
                             <option value="11">Dec</option>
                         </select>
-
                     </div>
                     <div style="display:inline">
-
-                        <select id ="yyyy" class="year form-control de-form-control" style="width: auto; margin-left: 10px;">
+                        <select id="yyyy" class="year form-control de-form-control" style="width: auto; margin-left: 10px;">
                             <option value=""></option>
                             <option value="1914">1914</option>
                             <option value="1915">1915</option>
@@ -293,21 +305,17 @@
                             <option value="2016">2016</option>
                             <option value="2017">2017</option>
                         </select>
-
                     </div>
-
-
-
                 </div>
                 <div class="col-sm-1">
                     <label class="travellerName">Gender</label>
                     <div style="margin-top: 2px;">
                         <label id="Gender" class="de-label">
-                            <input id="GenderM" name="Genderview17" type="radio" value="M"> M</label> | <label class="de-label">
+                            <input id="GenderM" name="Genderview17" type="radio" value="M"> M
+                        </label> | <label class="de-label">
                             <input id="GenderF" name="Genderview17" type="radio" value="F"> F
                         </label>
                     </div>
-
                 </div>
             </div>
             <div class="row" id="phoneNumberPlaceHolder">
@@ -316,8 +324,6 @@
                         <label class="travellerName">Phone Number</label>
                         <input type="text" class="de-form-control" style="height: 30px;" name="PhoneNumber" id="PhoneNumber" value="">
                     </div>
-
-
                 </div>
                 <div class="col-md-6">
                     <div style="float: right; width: 183px; margin-right: 106px;">
@@ -575,68 +581,286 @@
                             <option value="716">Zimbabwe</option>
                         </select>
                     </div>
-
                 </div>
-
             </div>
         </div>
         <div style="background-color: #E0E6E8;margin-top: 15px;">
             <div>
-
-
                 <div class="row">
                     <!--If there is any result-->
-                    {{#.}}
-                    {{#.}}
+                    {{#ActivityTravelServices}}
                     <div class="col-md-12" style="background-color:white">
                         <div class="cotainer" cellpadding="0" cellspacing="0" border="0" width="100%">
                             <div class="row" style="background-color: #E0E6E8; margin-top:10px;">
-
                                 <div class="col-md-12">
                                     <div class="row activityPriceDetailsBold" style=" background-color:#AFB8BD ; margin-left: 2px;">
                                         <div class="col-md-12" style="color:white ; margin-right:2px">
                                             {{ActivityName}}
                                         </div>
                                     </div>
-                                    {{#details}}{{#.}}
-                                    <div class="col-md-12" style="height: 80px;background-color: whitesmoke;">
-                                        {{#Rules}}
-                                        <div class="row ">
-
-                                            <div class="col-md-12 quesText" >{{Properties.DefaultValue}}</div>
-
-                                        </div>
-                                        {{/Rules}}
-                                        {{#Answer.Rules}}
-                                        <div class="row">
-
-                                            <div class="col-md-12">
-                                                {{#Properties.MaximumLength}}
-                                                <input id ="ans"class="form-control de-form-control" rows="1" name="Answer" maxlength="{{Properties.MaximumLength}}" required>
-                                                {{/Properties.MaximumLength}}
+                                    {{#passanger}}
+                                    <div class="row" id="personalInformationPlaceHolder" style="margin-top:5px">
+                                        <div class="col-sm-1">
+                                            <div style="float: left; width: 65px; margin-left: 5px;">
+                                                <label class="travellerName">Title</label>
+                                                <select id="Title{{TravelServiceId}}_{{id}}" class="form-control de-form-control" name="Title" value="">
+                                                    <option value=""></option>
+                                                    <option value="Mr.">Mr.</option>
+                                                    <option value="Mrs.">Mrs.</option>
+                                                    <option value="Ms.">Ms.</option>
+                                                    <option value="Dr.">Dr.</option>
+                                                    <option value="Mstr">Mstr</option>
+                                                    <option value="Miss">Miss</option>
+                                                </select>
                                             </div>
-
                                         </div>
-                                        {{/Answer.Rules}}
-
+                                        <div class="col-sm-6">
+                                            <div style="float: left; width: 145px;height:auto; margin-left: 5px;">
+                                                <label class="travellerName">First Name</label>
+                                                <input type="text" class="de-form-control" style="height: 30px;" name="FirstName" id="FirstName{{TravelServiceId}}_{{id}}" value="">
+                                            </div>
+                                            <div style="float: left; width: 145px; margin-left: 10px;">
+                                                <label class="travellerName">Middle Name</label>
+                                                <input type="text" class="de-form-control" style="height: 30px;" name="MiddleName" id="MiddleName{{TravelServiceId}}_{{id}}" value="">
+                                            </div>
+                                            <div style="float: left; width: 145px; margin-left: 10px;">
+                                                <label class="travellerName">Last Name</label>
+                                                <input type="text" class="de-form-control" style="height: 30px;" name="LastName" id="LastName{{TravelServiceId}}_{{id}}" value="">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3" style=" float: left; width: auto; margin-left: auto;">
+                                            <label style=" display:block;" class="travellerName">Date of Birth</label>
+                                            <div style="display: inline;">
+                                                <select id="dd{{TravelServiceId}}_{{id}}" class="day form-control de-form-control" style="width: auto; float: left; width: 50px; margin-left: 10px;">
+                                                    <option value=""></option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                    <option value="6">6</option>
+                                                    <option value="7">7</option>
+                                                    <option value="8">8</option>
+                                                    <option value="9">9</option>
+                                                    <option value="10">10</option>
+                                                    <option value="11">11</option>
+                                                    <option value="12">12</option>
+                                                    <option value="13">13</option>
+                                                    <option value="14">14</option>
+                                                    <option value="15">15</option>
+                                                    <option value="16">16</option>
+                                                    <option value="17">17</option>
+                                                    <option value="18">18</option>
+                                                    <option value="19">19</option>
+                                                    <option value="20">20</option>
+                                                    <option value="21">21</option>
+                                                    <option value="22">22</option>
+                                                    <option value="23">23</option>
+                                                    <option value="24">24</option>
+                                                    <option value="25">25</option>
+                                                    <option value="26">26</option>
+                                                    <option value="27">27</option>
+                                                    <option value="28">28</option>
+                                                    <option value="29">29</option>
+                                                    <option value="30">30</option>
+                                                    <option value="31">31</option>
+                                                </select>
+                                            </div>
+                                            <div style="display: inline;">
+                                                <select id="mm{{TravelServiceId}}_{{id}}" class="month form-control de-form-control" style="width: auto; float: left; width: 60px; margin-left: 10px; ">
+                                                    <option value=""></option>
+                                                    <option value="0">Jan</option>
+                                                    <option value="1">Feb</option>
+                                                    <option value="2">Mar</option>
+                                                    <option value="3">Apr</option>
+                                                    <option value="4">May</option>
+                                                    <option value="5">Jun</option>
+                                                    <option value="6">Jul</option>
+                                                    <option value="7">Aug</option>
+                                                    <option value="8">Sep</option>
+                                                    <option value="9">Oct</option>
+                                                    <option value="10">Nov</option>
+                                                    <option value="11">Dec</option>
+                                                </select>
+                                            </div>
+                                            <div style="display:inline">
+                                                <select id="yyyy{{TravelServiceId}}_{{id}}" class="year form-control de-form-control" style="width: auto; margin-left: 10px;">
+                                                    <option value=""></option>
+                                                    <option value="1914">1914</option>
+                                                    <option value="1915">1915</option>
+                                                    <option value="1916">1916</option>
+                                                    <option value="1917">1917</option>
+                                                    <option value="1918">1918</option>
+                                                    <option value="1919">1919</option>
+                                                    <option value="1920">1920</option>
+                                                    <option value="1921">1921</option>
+                                                    <option value="1922">1922</option>
+                                                    <option value="1923">1923</option>
+                                                    <option value="1924">1924</option>
+                                                    <option value="1925">1925</option>
+                                                    <option value="1926">1926</option>
+                                                    <option value="1927">1927</option>
+                                                    <option value="1928">1928</option>
+                                                    <option value="1929">1929</option>
+                                                    <option value="1930">1930</option>
+                                                    <option value="1931">1931</option>
+                                                    <option value="1932">1932</option>
+                                                    <option value="1933">1933</option>
+                                                    <option value="1934">1934</option>
+                                                    <option value="1935">1935</option>
+                                                    <option value="1936">1936</option>
+                                                    <option value="1937">1937</option>
+                                                    <option value="1938">1938</option>
+                                                    <option value="1939">1939</option>
+                                                    <option value="1940">1940</option>
+                                                    <option value="1941">1941</option>
+                                                    <option value="1942">1942</option>
+                                                    <option value="1943">1943</option>
+                                                    <option value="1944">1944</option>
+                                                    <option value="1945">1945</option>
+                                                    <option value="1946">1946</option>
+                                                    <option value="1947">1947</option>
+                                                    <option value="1948">1948</option>
+                                                    <option value="1949">1949</option>
+                                                    <option value="1950">1950</option>
+                                                    <option value="1951">1951</option>
+                                                    <option value="1952">1952</option>
+                                                    <option value="1953">1953</option>
+                                                    <option value="1954">1954</option>
+                                                    <option value="1955">1955</option>
+                                                    <option value="1956">1956</option>
+                                                    <option value="1957">1957</option>
+                                                    <option value="1958">1958</option>
+                                                    <option value="1959">1959</option>
+                                                    <option value="1960">1960</option>
+                                                    <option value="1961">1961</option>
+                                                    <option value="1962">1962</option>
+                                                    <option value="1963">1963</option>
+                                                    <option value="1964">1964</option>
+                                                    <option value="1965">1965</option>
+                                                    <option value="1966">1966</option>
+                                                    <option value="1967">1967</option>
+                                                    <option value="1968">1968</option>
+                                                    <option value="1969">1969</option>
+                                                    <option value="1970">1970</option>
+                                                    <option value="1971">1971</option>
+                                                    <option value="1972">1972</option>
+                                                    <option value="1973">1973</option>
+                                                    <option value="1974">1974</option>
+                                                    <option value="1975">1975</option>
+                                                    <option value="1976">1976</option>
+                                                    <option value="1977">1977</option>
+                                                    <option value="1978">1978</option>
+                                                    <option value="1979">1979</option>
+                                                    <option value="1980">1980</option>
+                                                    <option value="1981">1981</option>
+                                                    <option value="1982">1982</option>
+                                                    <option value="1983">1983</option>
+                                                    <option value="1984">1984</option>
+                                                    <option value="1985">1985</option>
+                                                    <option value="1986">1986</option>
+                                                    <option value="1987">1987</option>
+                                                    <option value="1988">1988</option>
+                                                    <option value="1989">1989</option>
+                                                    <option value="1990">1990</option>
+                                                    <option value="1991">1991</option>
+                                                    <option value="1992">1992</option>
+                                                    <option value="1993">1993</option>
+                                                    <option value="1994">1994</option>
+                                                    <option value="1995">1995</option>
+                                                    <option value="1996">1996</option>
+                                                    <option value="1997">1997</option>
+                                                    <option value="1998">1998</option>
+                                                    <option value="1999">1999</option>
+                                                    <option value="2000">2000</option>
+                                                    <option value="2001">2001</option>
+                                                    <option value="2002">2002</option>
+                                                    <option value="2003">2003</option>
+                                                    <option value="2004">2004</option>
+                                                    <option value="2005">2005</option>
+                                                    <option value="2006">2006</option>
+                                                    <option value="2007">2007</option>
+                                                    <option value="2008">2008</option>
+                                                    <option value="2009">2009</option>
+                                                    <option value="2010">2010</option>
+                                                    <option value="2011">2011</option>
+                                                    <option value="2012">2012</option>
+                                                    <option value="2013">2013</option>
+                                                    <option value="2014">2014</option>
+                                                    <option value="2015">2015</option>
+                                                    <option value="2016">2016</option>
+                                                    <option value="2017">2017</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <label class="travellerName">Gender</label>
+                                            <div style="margin-top: 2px;">
+                                                <label id="Gender" class="de-label">
+                                                    <input id="GenderM{{TravelServiceId}}_{{id}}" name="Genderview17" type="radio" value="M"> M
+                                                </label> | <label class="de-label">
+                                                    <input id="GenderF{{TravelServiceId}}_{{id}}" name="Genderview17" type="radio" value="F"> F
+                                                </label>
+                                            </div>
+                                        </div>
                                     </div>
-                                    
-                                   {{/.}}{{/details}}
-                                </div>                               
+                                    <div class="row" id="phoneNumberPlaceHolder">
+                                        <div class="col-md-6">
+                                            <div style="float: right; width: 183px; margin-right: -81px;">
+                                                <label class="travellerName">Phone Number</label>
+                                                <input type="text" class="de-form-control" style="height: 30px;" name="PhoneNumber" id="PhoneNumber{{TravelServiceId}}_{{id}}" value="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {{/passanger}}
+                                    {{#Questionnaires}}
+                                    <div>
+                                        {{#qsPassangerBased}}
+                                        <div class="col-md-12" style="height: 80px;background-color: whitesmoke;">
+                                            <div class="row ">
+                                                <div class="col-md-12 quesText">{{QuestionnaireText}}*</div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <input id="ans_{{QuestionnaireId}}" class="form-control de-form-control" rows="1" name="Answer" maxlength="{{Properties.MaximumLength}}" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {{/qsPassangerBased}}
+                                    </div>
+                                    <div style="background-color: white">
+                                    </div>
+                                    <div>
+                                        {{#qsActivityBased}}
+                                        <div class="col-md-12" style="height: 80px;background-color: whitesmoke;">
+                                            <div class="row ">
+                                                <div class="col-md-12 quesText">{{QuestionnaireText}}*</div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <input id="ans_{{QuestionnaireId}}" class="form-control de-form-control" rows="1" name="Answer" maxlength="{{Properties.MaximumLength}}" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {{/qsActivityBased}}
+                                    </div>
+                                    {{/Questionnaires}}
+                                </div>
                             </div>
                         </div>
                     </div>
-                    
-
                     <!--if there is total price-->
-                    {{/.}}
-                    {{/.}}
-                   
+                    {{/ActivityTravelServices}}
+                </div>
+                <div class="pull-right buttongroup">
+                    <button id="SaveTravelers" title="Save Travelers" type="button" onclick="bookBtnClick()" class="btn btn-primary on-quote-only-click" style="margin-right: 10px;margin-top: 9px;">Book</button>
+                </div>
+                <div class="pull-right buttongroup">
+                    <button id="quoteBtn" title="Save Travelers" type="button" onclick="quoteBtnClickQs()" class="btn btn-primary on-quote-only-click" style="margin-right: 10px;margin-top: 9px;">Quote</button>
                 </div>
             </div>
         </div>
     </script>
-
     <link href="bower_components/assets/css/activityresult.css " rel="stylesheet " />
     <script src="bower_components/assets/js/Jquery/jquery-2.0.3.min.js "></script>
     <script src="bower_components/assets/js/libs/underscore.js "></script>
@@ -647,5 +871,4 @@
     <script src="bower_components/app/Questionnaire.js "></script>
     <script src="bower_components/assets/js/libs/bootstrap3-typeahead.min.js"></script>
 </body>
-
 </html>

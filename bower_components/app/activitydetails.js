@@ -7,34 +7,19 @@
  * Author: Viniston Fernando
  */
 
-
-
 function setOptions(act) {
-     
-    
-
     for (var j = 0; j < act.length; j++) {
         var activityCode = act[j].ActivityInfo.ActivityCode;
-
         for (var k = 0; k < act[j].ActivityInfo.ActivityOptions.length; k++) {
-
-
-
-
             var maxAdult = act[j].ActivityInfo.ActivityOptions[k].MaxAdultAllowed;
             var maxChild = act[j].ActivityInfo.ActivityOptions[k].MaxChildAllowed;
             var maxUnit = act[j].ActivityInfo.ActivityOptions[k].MaxUnitAllowed;
-
-
-
             if (maxUnit != 0) {
                 var options = '';
                 for (i = 1; i <= maxUnit; i++) {
-
                     options += '<option value="' + i + '">' + i + '</option>';
                 }
                 //return options;
-
                 var unitOptionId = "#ddlActivityUnits_" + activityCode;
                 var sel = $(unitOptionId);
                 sel.empty().append(options);
@@ -44,62 +29,42 @@ function setOptions(act) {
                 var optionsForChild = '';
                 for (i = 1; i <= maxAdult; i++) {
                     optionsForAdult += '<option value="' + i + '">' + i + '</option>';
-
-
                 }
                 for (i = 0; i <= maxChild; i++) {
                     optionsForChild += '<option value="' + i + '">' + i + '</option>';
-
                 }
-
                 //return options;
                 //return optionsForChild;
-
                 var adultOptionId = "#ddlActivityAdults_" + activityCode;
                 var childOptionId = "#ddlActivityChilds_" + activityCode;
                 var sel1 = $(adultOptionId);
                 var sel2 = $(childOptionId);
                 sel1.empty().append(optionsForAdult);
                 sel2.empty().append(optionsForChild);
-               
-
-
             }
-
-
         }
-
     }
-
 }
-
 var act;
-
 var ratings = { "rating": JSON.parse(window.localStorage.getItem("searchCriteria")) }
 $(document)
-    .ready(function() {
-            var searchQualifierList = [];
-
+    .ready(function () {
+        var searchQualifierList = [];
         /**
          * Backbone view.
          **/
         var quoteName;
-
-		var selectedActivities = [];
+        var selectedActivities = [];
         window.AppView = Backbone.View.extend({
             el: $(".totalstaybooking"),
-
             // Main initialization entry point...
-
-            initialize: function() {
+            initialize: function () {
                 this.doAvailabilitySearch();
             },
-
             initControls: function () {
                 $('select').select2();
             },
-
-            getParameterByName:function(name, url) {
+            getParameterByName: function (name, url) {
                 if (!url) url = window.location.href;
                 name = name.replace(/[\[\]]/g, "\\$&");
                 var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
@@ -108,11 +73,9 @@ $(document)
                 if (!results[2]) return '';
                 return decodeURIComponent(results[2].replace(/\+/g, " "));
             },
-
-            findAvailabilityDates: function(activityOptions) {
+            findAvailabilityDates: function (activityOptions) {
                 return _.uniq(_.pluck(activityOptions, 'AvailableFromDate'));
             },
-
             groupActivityCategory: function (activities) {
                 var self = this, activityOption = {};
                 activities = activities.Results;
@@ -120,7 +83,7 @@ $(document)
                 var activityGroupColection = [], toJsonModel = { ActivityGroup: [] }, activity = {}, i;
                 for (i = 0; i < activities.length; i++) {
                     var isExist = $.grep(activityGroupColection,
-                        function(group) {
+                        function (group) {
                             return group.CategoryName === activities[i].ActivityInfo.CategoryName;
                         });
                     if (isExist.length === 0) {
@@ -139,10 +102,7 @@ $(document)
                         //    var a = setOptions(activities);
                         //    activity.unitOption = a;
                         //}
-                       
                         activity.AvailabilityDates = self.findAvailabilityDates(activities[i].ActivityInfo.ActivityOptions);
-
-                        
                         activity.ActivityInfo.push(activities[i].ActivityInfo);
                         activityGroupColection.push(activity);
                     } else {
@@ -150,18 +110,14 @@ $(document)
                     }
                 }
                 toJsonModel.ActivityGroup = activityGroupColection;
-               
                 return toJsonModel;
             },
-
-           
-
-            doAvailabilitySearch: function(e) {
+            doAvailabilitySearch: function (e) {
                 var template,
-					searchTemplate,
+                    searchTemplate,
                     self = this;
                 template = $("#tmpl-activity").html();
-				searchTemplate = $("#tmpl-search-criteria").html();
+                searchTemplate = $("#tmpl-search-criteria").html();
                 var dataInput = {
                     "MinPrice": null,
                     "MaxPrice": null,
@@ -175,31 +131,27 @@ $(document)
                     "ActivityType": [0],
                     "ApplyFiltering": true
                 };
-			
-							
                 $.ajax({
                     url: "../api/catalog/activity/availability/" + self.getParameterByName('CriteriaToken'),
                     type: "POST",
                     data: dataInput,
-                    success: function(e) {
+                    success: function (e) {
                         if (e != null) {
-														
-							//Search criteria
-
+                            //Search criteria
                             Storage.prototype.setObject("token", self.getParameterByName('CriteriaToken'));
-
-							var searchCriteria = Storage.prototype.getObject("searchCriteria");
-							 var htmSearch = Mustache.render(searchTemplate, searchCriteria);
-							 self.$("#SearchCriteriaPlaceHolder").html(htmSearch);
-                            
-                             var htm = Mustache.render(template, self.groupActivityCategory(e));
-                            
+                            var searchCriteria = Storage.prototype.getObject("searchCriteria");
+                            var htmSearch = Mustache.render(searchTemplate, searchCriteria);
+                            self.$("#SearchCriteriaPlaceHolder").html(htmSearch);
+                            var htm = Mustache.render(template, self.groupActivityCategory(e));
                             self.$("#activityholder").html(htm);
                             setOptions(act);
                             self.applyActivityOptionsAlternateRowColor();
                             self.initControls();
+                            var elems = document.getElementsByClassName("btn-activity-shortlist");
+                            for (var i = 0; i < elems.length; i++) {
+                                elems[i].disabled = true;
+                            }
                         }
-                           
                     },
                     error: function (e, o, t) {
                         e.ActivityGroup = {};
@@ -212,30 +164,22 @@ $(document)
                     }
                 });
                 return true;
-
             },
-
             applyActivityOptionsAlternateRowColor: function () {
-                this.$('.activityOptionstbody').each(function() {
+                this.$('.activityOptionstbody').each(function () {
                     $(this).find('tr:even').addClass('Activities_line_color');
                 });
-                
             },
-
-            
-
-			doCheckout: function(){
-				if(selectedActivities.length === 0){
-					alert("Please short list one activity");
-					return;
+            doCheckout: function () {
+                if (selectedActivities.length === 0) {
+                    alert("Please short list one activity");
+                    return;
                 }
-
-                Storage.prototype.setObject("selectedSearchQualifier", searchQualifierList);
-                
-				Storage.prototype.setObject("selectedActivities",selectedActivities);
+                Storage.prototype.setObject("selectedSearchQualifier", _.uniq(searchQualifierList));
+                Storage.prototype.setObject("selectedActivities", selectedActivities);
                 window.location = "../activity/ActivityRateDetails.html";
-			},
-			shortlistActivity: function(e){
+            },
+            shortlistActivity: function (e) {
                 var anyOptionSelected,
                     activityCode,
                     clsToLoop,
@@ -248,72 +192,87 @@ $(document)
                     shortDescription,
                     childAgeOffer,
                     optionName
-                
-
-
-
                 SearchQualifierV = e.currentTarget.getAttribute("searchqualifier");
-
                 searchQualifierList.push(SearchQualifierV);
-				activityName = e.currentTarget.getAttribute("activityname");
+                activityName = e.currentTarget.getAttribute("activityname");
                 thumbUrl = e.currentTarget.getAttribute("ThumbUrl");
                 shortDescription = e.currentTarget.getAttribute("ShortDescription");
                 childAgeOffer = e.currentTarget.getAttribute("ChildAgeOffer");
-				anyOptionSelected = false;
-				activityCode = e.currentTarget.getAttribute("activityCode");
+                anyOptionSelected = false;
+                activityCode = e.currentTarget.getAttribute("activityCode");
                 clsToLoop = $("input.rdo-" + activityCode);
                 var a = "Radio_" + activityCode;
                 optionName = $('input[name= a]:checked').val();
-				if( clsToLoop.filter(':checked').length == 0){
-					alert("Please select an option.");
-					return;
-				}
-				
-				activityDate = $('#ddlActivityAvailableDates_' + activityCode)["0"].value;
-				if($('#ddlActivityAdults_' + activityCode)["0"]){
-					adultCount = $('#ddlActivityAdults_' + activityCode)["0"].value;
-					childCount = $('#ddlActivityChilds_' + activityCode)["0"].value;
-				}
-				if($('#ddlActivityUnits_' + activityCode)["0"]){
-					unitCount = $('#ddlActivityUnits_' + activityCode)["0"].value;
-				}
-               
-                    _.each(clsToLoop, function (rdo) {
-					if($(rdo).is(':checked')){
-						var myObject = new Object();
-						myObject.ActivityCode = activityCode;
+                if (clsToLoop.filter(':checked').length == 0) {
+                    alert("Please select an option.");
+                    return;
+                }
+                activityDate = $('#ddlActivityAvailableDates_' + activityCode)["0"].value;
+                if ($('#ddlActivityAdults_' + activityCode)["0"]) {
+                    adultCount = $('#ddlActivityAdults_' + activityCode)["0"].value;
+                    childCount = $('#ddlActivityChilds_' + activityCode)["0"].value;
+                }
+                if ($('#ddlActivityUnits_' + activityCode)["0"]) {
+                    unitCount = $('#ddlActivityUnits_' + activityCode)["0"].value;
+                }
+                function modifyArray(actCode, obj) {
+                    if (selectedActivities.length == 0) {
+                        selectedActivities.push({
+                            key: actCode,
+                            value: obj
+                        });
+                    }
+                    else {
+                        if (selectedActivities[selectedActivities.length - 1].key == actCode) {
+                            selectedActivities.splice(selectedActivities.length - 1, 1, {
+                                key: actCode,
+                                value: obj
+                            })
+                        }
+                        else {
+                            selectedActivities.push({
+                                key: actCode,
+                                value: obj
+                            });
+                        }
+                    }
+                }
+                _.each(clsToLoop, function (rdo) {
+                    if ($(rdo).is(':checked')) {
+                        var myObject = new Object();
+                        myObject.ActivityCode = activityCode;
                         myObject.ActivityOption = rdo.value;
                         myObject.OptionName = rdo.id;
-						myObject.Date = activityDate;
-						myObject.Adult = adultCount;
-						myObject.Child = childCount;
-						myObject.Unit = unitCount;
+                        myObject.Date = activityDate;
+                        myObject.Adult = adultCount;
+                        myObject.Child = childCount;
+                        myObject.Unit = unitCount;
                         myObject.Name = activityName;
                         //quoteName = quoteName + activityName + "|";
                         myObject.image = thumbUrl;
                         myObject.shortDescription = shortDescription;
                         myObject.childAgeOffer = childAgeOffer;
-						selectedActivities.push({
-							key:   e.currentTarget.getAttribute("activityCode"),
-							value: myObject
-						});
-						anyOptionSelected = true;
-					}					
+                        modifyArray(e.currentTarget.getAttribute("activityCode"), myObject)
+                        anyOptionSelected = true;
                     }
-                    )
-                   
-				
-                    $(e.currentTarget).attr("disabled", true);
-                   // selectedActivities.push({ quoteName });
-			},
+                })
+                $(e.currentTarget).attr("disabled", true);
+                // selectedActivities.push({ quoteName });
+            },
             // Backbone View events ...
-           
             events: {
                 "click #btnCheckout": "doCheckout",
-				"click .btn-activity-shortlist": "shortlistActivity"
+                "click .btn-activity-shortlist": "shortlistActivity"
             }
-
         });
-
         var appview = new AppView();
     });
+var flag = 0;
+function enableShortlistBTN(e) {
+    var a = e.getAttribute('name'); //Radio_1460007 //searchqualifier
+    a = a.replace("Radio", "1")
+    var target = document.getElementById(a);
+    if (target.disabled) {
+        target.disabled = false;
+    }
+}
