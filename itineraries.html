@@ -30,6 +30,9 @@
                 <div class="">
                     <h3>Activity Itinerary Summary</h3>
 
+
+                    <button id="ActualTSP" title="ActualTSP" type="button" onclick="actualTSP()" class="btn btn-primary on-quote-only-click" style="margin-left: 1000px;margin-top:-30px;">Actual TSP</button>
+
                     <!--<div id="SearchCriteriaPlaceHolder"></div>-->
 
                 </div>
@@ -38,6 +41,32 @@
                         <form id="RegMetadata" class="form-float">
                             <div class="span12" id="historyDiv">
                                 <div class="historical-wrapper">
+                                    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                                        <tbody>
+                                            <tr>
+                                                <td height="5px"></td>
+                                            </tr>
+                                            <tr>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div id="searchResultsDiv" style="visibility: visible;">
+                                                        <div id="activitySearchResults" style="width: 100%; visibility: visible;">
+                                                            <div id="activityholder">
+                                                                <div class="widget-loading" style="display: block;text-align: center;margin-top: auto;margin-top: 5%;margin-bottom: auto;vertical-align: middle;">
+                                                                    <div class="title">Please wait while we process your request.</div>
+                                                                    <div>
+                                                                        <img src="img/loading-bar.gif" alt="Loading." title="Loading...">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </form>
@@ -75,17 +104,17 @@
                                                 <div class="service-list-title">
                                                     <p>
                                                         <strong>
-                                                            {{ActivityName}}
+                                                            {{Detail.ActivityName}}
                                                         </strong>
                                                     </p>
-                                                    
+
                                                     <div>
                                                         {{StartDate}} – {{EndDate}}
                                                     </div>
                                                 </div>
-                                                <div class="service-list-status">
-                                                    <span id ="book2" class ="label-status"style="background-color :green ; color: white;">
-                                                        BOOKEDNOPAY
+                                                <div class="service-list-status" style="margin-top: 0PX;">
+                                                    <span id="book2" class="label-status" style="background-color :{{Color}} ; color: white; min-width: 88px;">
+                                                        {{Status}}
                                                     </span>
                                                 </div>
                                             </div>
@@ -93,9 +122,9 @@
                                                 <div class="col-xs-12 col-md-12" style="margin-top: 15px">
                                                     <strong>Registered Name: {{DisplayContactName}}</strong>
                                                 </div>
-                                            </div>                                           
+                                            </div>
                                             <div class="row" style="margin-top: 10px;">
-                                                
+
                                                 <div class="col-xs-8 col-md-8">
                                                     {{#Rate.NumberOfUnits}}
                                                     <strong>Number of Units:</strong> {{Rate.NumberOfUnits}}
@@ -104,31 +133,31 @@
                                                     <strong>Number of Adults:</strong> {{Rate.NumberOfAdults}}
                                                     {{/Rate.NumberOfAdults}}
                                                 </div>
-                                                
+
                                                 <div class="col-xs-4 col-md-4">
                                                     <strong>Activity Rate:</strong> {{Rate.TotalPrice.CurrencyCode}} {{Rate.TotalPrice.Symbol}}{{Rate.TotalPrice.Amount}}
                                                 </div>
-                                                
+
                                                 <div class="row" style="margin-top: 10px;">
                                                     <div class="col-xs-12 col-md-12" style="margin-left: 15px;margin-top: 5px;">
                                                         <strong>Rate Description:</strong><br><br>
-														{{Detail.ShortDescription}}
+                                                        {{Detail.ShortDescription}}
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>										
+                                        </div>
                                     </div>
 
                                 </li>
-                                
+
                             </ul>
 
                         </div>
 
                     </div>
-					<div><br/></div>
+                    <div><br /></div>
                     <div style="width: 100%">
-						<div class="row" style="margin-bottom:20px;">
+                        <div class="row" style="margin-bottom:20px;">
                             {{#Rate.CancellationPolicies}}
                             <div class="col-md-6" style="margin-bottom: 3px;">
                                 <div class="te-notification te-sm-notification alert-warning">
@@ -136,21 +165,22 @@
                                         Cancellation Policy:
                                     </strong>
                                     <p></p>
-                                    <p>{{Description}}
+                                    <p>
+                                        {{Description}}
                                     </p>
 
                                 </div>
 
                             </div>
                             {{/Rate.CancellationPolicies}}
-                           
+
                         </div>
                     </div>
                 </div>
 
             </div>
 
-            
+
             <div class="col-md-4">
                 <div>
                     <div class="hotel-service-container">
@@ -166,7 +196,7 @@
                             <div style="padding:15px;">
                                 <div class="row margin-bottom-5 row-7">
                                     <div class="col-md-3 col-xs-3" style="margin-right: -5px;">
-                                        <span id="book1" class="label-status label-booked-no-pay" style="background-color :green ; color: white;">BookedNoPay</span>
+                                        <span id="book1" class="label-status label-booked-no-pay" style="background-color :{{Color}} ; color: white; min-width: 88px;">{{Status}}</span>
                                     </div>
                                 </div>
                                 <div class="row row-7">
@@ -191,15 +221,15 @@
                                         <label class="details">ACTIVITY</label>
                                     </div>
                                     <div class="col-md-8 col-xs-8">
-                                       <p>{{ActivityName}}</p>
+                                        <p>{{ActivityName}}</p>
                                     </div>
                                 </div>
-                                
+
                                 <div class="row row-7 ice-grey">
                                     {{#Rate.NumberOfUnits}}
                                     <div class="col-md-4 col-xs-4">
                                         <label class="details">Number of Units</label>
-                                        
+
                                     </div>
                                     <div class="col-md-8 col-xs-8">
                                         {{Rate.NumberOfUnits}}
@@ -216,7 +246,7 @@
                                     </div>
                                     {{/Rate.NumberOfAdults}}
                                 </div>
-                                
+
                                 <div class="row row-7 ice-grey">
                                     <div class="col-md-4 col-xs-4">
                                         <label class="details">Registered</label>
@@ -230,7 +260,7 @@
                                         <label class="details">Phone</label>
                                     </div>
                                     <div class="col-md-8 col-xs-8">
-                                        {{Detail.PhoneNumber}}											
+                                        {{Detail.PhoneNumber}}
                                     </div>
                                 </div>
 
@@ -240,28 +270,38 @@
                                     </div>
                                     <div class="col-md-8 col-xs-8">
                                         {{#Detail.Address}}
-											{{Address1}} {{Address2}} {{City}} {{Zip}}  
-										{{/Detail.Address}}
-                                    </div>
-                                </div>
-								
-                                <div class="row row-7">
-                                    <div class="col-xs-12 col-md-12">
-                                        <hr style="margin-top: 5px; margin-bottom: 5px;">
+                                        {{Address1}} {{Address2}} {{City}} {{Zip}}
+                                        {{/Detail.Address}}
                                     </div>
                                 </div>
 
+                                <div class="row row-7">
+                                    <div class="col-xs-12 col-md-12">
+
+                                        {{# IsBookEnable}}
+                                        <button id="{{TravelServiceId}}" title="Save Travelers" type="button" onclick="bookFromTSP(this)" class="btn btn-primary on-quote-only-click" style="margin-right: 10px;margin-top: 9px;">Book</button>
+
+                                        {{/ IsBookEnable}}
+                                        {{# IsCancelEnable}}
+                                        <button id="{{TravelServiceId}}" title="Save Travelers" type="button" onclick="doCancel(this)" class="btn btn-primary on-quote-only-click" style="margin-right: 10px;margin-top: 9px;">Cancel</button>
+
+                                        {{/ IsCancelEnable}}
+                                    </div>
+                                </div>
                             </div>
                         </div>
+
                     </div>
 
                 </div>
 
             </div>
-           
+
         </div>
         {{/ActivityTravelServices}}
         {{/details}}
+
+
 
 
 

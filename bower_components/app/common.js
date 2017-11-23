@@ -10,3 +10,12 @@ $(document)
 					return value && JSON.parse(value);
 		}
 	});
+
+function btnSpin(q) {
+    var spinclass = "\"fa fa-spinner fa-spin\"";
+    var spin = "<i class= " + spinclass + "></i>";
+    var a = $("#" + q);
+
+    a.append(spin);
+    document.getElementById(q).disabled = true;
+}

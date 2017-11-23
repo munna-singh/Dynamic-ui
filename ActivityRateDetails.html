@@ -13,6 +13,7 @@
     <link href="bower_components/assets/css/activitypriceDetails.css" rel="stylesheet" />
     <link href="bower_components/assets/css/font-awesome.css" rel="stylesheet" />
     <link href="bower_components/assets/css/select2.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -37,6 +38,32 @@
                         <form id="RegMetadata" class="form-float">
                             <div class="span12" id="historyDiv">
                                 <div class="historical-wrapper">
+                                    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                                        <tbody>
+                                            <tr>
+                                                <td height="5px"></td>
+                                            </tr>
+                                            <tr>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div id="searchResultsDiv" style="visibility: visible;">
+                                                        <div id="activitySearchResults" style="width: 100%; visibility: visible;">
+                                                            <div id="activityholder">
+                                                                <div class="widget-loading" style="display: block;text-align: center;margin-top: auto;margin-top: 5%;margin-bottom: auto;vertical-align: middle;">
+                                                                    <div class="title">Please wait while we process your request.</div>
+                                                                    <div>
+                                                                        <img src="img/loading-bar.gif" alt="Loading." title="Loading...">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </form>
@@ -78,7 +105,7 @@
             {{#PricedActivityDetails}}
             <tr>
                 <td style="background-color:white">
-                    <table class="table table-borderless"  cellpadding="0" cellspacing="0" border="0" width="100%">
+                    <table class="table table-borderless" cellpadding="0" cellspacing="0" border="0" width="100%">
                         <tr style="background-color: #E0E6E8;">
                             <td class="col-md-2"><img width="150px" height="200px" src="{{ThumbUrl}}" alt="Niagara Falls Day Tour" name="activityThumb" onerror="this.src ='img/photo-not-available-small.gif'"></td>
                             <td width="50px">&nbsp;</td>
@@ -90,7 +117,7 @@
                                 </div>
                                 <div class="row activityPriceDetailsBold">
                                     <div class="col-md-4">Selected Date</div>
-                                    {{#NumberOfAdults}}                                    
+                                    {{#NumberOfAdults}}
                                     <div class="col-md-4">Total Adults</div>
                                     <div class="col-md-4">Total Children</div>
                                     {{/NumberOfAdults}}
@@ -110,7 +137,7 @@
                                 </div>
                                 <div class="row rate_row_margin">
                                     <div class="col-md-4"><strong>Option Name:</strong></div>
-                                   
+
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12">{{OptionName}}</div>
@@ -126,29 +153,29 @@
                                     <br />
                                     <div class="col-md-12 InfantsAged">**{{ChildAgeOffer}}**</div>
                                 </div>
-                                
+
                             </td>
                             <td style="background-color: white; padding: inherit;">&nbsp;</td>
                             <td class="col-md-2 activityCancellationPolicy">
-                                
+
                                 <strong>Calcallation Policy:</strong>
                                 {{#CancellationPolicies}}
                                 <div>
-                                    <p>{{Description}}</p>                                    
+                                    <p>{{Description}}</p>
                                 </div>
                                 {{/CancellationPolicies}}
                             </td>
                         </tr>
-                       
-                        
-                        
+
+
+
                         <tr style="background-color: white;">
                             <td colspan="3">
                                 <div class="row rateHighlightsHead">
                                     <div class="col-md-3">Dates</div>
                                     {{#NumberOfAdults}}
                                     <div class="col-md-2">Rate Per Adult</div>
-                                   
+
                                     {{/NumberOfAdults}}
                                     {{#TotalChildPrice}}
                                     <div class="col-md-2">Rate Per Child</div>
@@ -165,8 +192,8 @@
                                 <div class="row rateHighlightsBody">
                                     <div class="col-md-3">{{ActivityDate}}</div>
                                     {{#NumberOfAdults}}
-                                    <div class="col-md-2">{{TotalAdultsPrice.CurrencyCode}}{{TotalAdultsPrice.Symbol}}{{TotalAdultsPrice.Amount}}</div>
-                                    
+                                    <div class="col-md-2">{{TotalAdultsPrice.CurrencyCode}} {{TotalAdultsPrice.Symbol}} {{TotalAdultsPrice.Amount}}</div>
+
                                     {{/NumberOfAdults}}
                                     {{#TotalChildPrice}}
                                     <div class="col-md-2"> {{TotalChildPrice.CurrencyCode}} {{TotalChildPrice.Symbol}} {{TotalChildPrice.Amount}}</div>
@@ -175,14 +202,14 @@
                                     <div class="col-md-2"> </div>
                                     {{/TotalChildPrice}}
                                     {{#NumberOfUnits}}
-                                    <div class="col-md-2">{{TotalUnitPrice.CurrencyCode}}{{TotalUnitPrice.Symbol}}{{TotalUnitPrice.Amount}}</div>
+                                    <div class="col-md-2">{{TotalUnitPrice.CurrencyCode}} {{TotalUnitPrice.Symbol}} {{TotalUnitPrice.Amount}}</div>
                                     {{/NumberOfUnits}}
-                                    <div class="col-md-2">{{Tax.Amount}}{{Tax.Symbol}}</div>
-                                    <div class="col-md-3">{{TotalPrice.Amount}}{{TotalPrice.Symbol}}</div>
+                                    <div class="col-md-2">{{Tax.Amount}} {{Tax.Symbol}}</div>
+                                    <div class="col-md-3">{{TotalPrice.Amount}} {{TotalPrice.Symbol}}</div>
                                 </div>
                             </td>
                         </tr>
-                        
+
                     </table>
                 </td>
             </tr>
@@ -201,23 +228,83 @@
             <tr>
                 <td>
                     <!--<div class="pull-right"> <button id="btnQues" type="button" onClick="onButtonClick();" value="Submit" style="width:100px; margin-right:15px;">Submit</button>  </div>-->
-                        <!--<div class="pull-right"> <input id="btnQues" type="button" class="btn btn-primary" value="Proceed" style="width:100px; margin-right:15px;" /> </div>-->
+                    <!--<div class="pull-right"> <input id="btnQues" type="button" class="btn btn-primary" value="Proceed" style="width:100px; margin-right:15px;" /> </div>-->
                     <div class="pull-right buttongroup">
-                        <button title="Quote" type="button" onclick="onQuoteButtonClick();" class="btn btn-primary on-quote-only-click" style="margin-right: 176px;margin-top: 9px;">Quote</button>
+                        <button id="Quote" title="Quote" type="button" onclick="onQuoteButtonClick();" class="btn btn-primary on-quote-only-click" style="margin-right: 176px;margin-top: 9px;">
+
+
+                            Quote
+                        </button>
 
                     </div>
-                
+
                 </td>
             </tr>
             {{/TotalPrice}}
             {{/Results}}
-
-            <!--If there is no result-->
-            {{^Results}}
-            No activity selected
-            {{/Results}}
         </table>
-        
+
+        {{^Results}}
+        {{^errorData}}
+        <table cellpadding="0" cellspacing="0" border="0" width="100%">
+            <tbody>
+                <tr>
+                    <td height="5px"></td>
+                </tr>
+                <tr>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>
+                        <div id="searchResultsDiv" style="visibility: visible;">
+                            <div id="activitySearchResults" style="width: 100%; visibility: visible;">
+                                <div id="activityholder">
+                                    <div class="widget-loading" style="color:#02AFEF;display: block;text-align: center;margin-top: auto;margin-top: 5%;margin-bottom: auto;vertical-align: middle;">
+                                        <div class="title">No results found for your search criteria. Please modify your search and try again.</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        {{/errorData}}
+        {{#errorData}}
+        {{#ErrorCoccured}}
+        <table cellpadding="0" cellspacing="0" border="0" width="100%">
+            <tbody>
+                <tr>
+                    <td height="5px"></td>
+                </tr>
+                <tr>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>
+                        <div id="searchResultsDiv" style="visibility: visible;">
+                            <div id="activitySearchResults" style="width: 100%; visibility: visible;">
+                                <div id="activityholder">
+                                    <div class="widget-loading" style="color:#ff0000;display: block;text-align: center;margin-top: auto;margin-top: 5%;margin-bottom: auto;vertical-align: middle;">
+                                        <div class="title">An error occured. Please contact our admin. </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        {{/ErrorCoccured}}
+        {{/errorData}}
+
+        {{/Results}}
+
+
+
+
+
+
 
     </script>
     <link href="bower_components/assets/css/activityresult.css " rel="stylesheet " />

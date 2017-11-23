@@ -13,6 +13,7 @@
     <link href="bower_components/assets/css/select2.css" rel="stylesheet" />
 </head>
 <body>
+
     <div class="totalstaybooking">
         <div class="contentBlock">
             <div title="" class="header bsiLogo">
@@ -228,27 +229,28 @@
 																										{{#ShowUnitPrice}}
 																										<nobr>Unit</nobr>
 																										<select id="ddlActivityUnits_{{ActivityCode}}" class="input" style="width: 80px; margin-left:10px;" onchange="changeTotalMargin({{ActivityCode}})">																										
-																										<option value="1">1</option>
-																										<option value="2">2</option>
-																										<option value="3">3</option>
-																										<option value="4">4</option>
-																										<option value="5">5</option>
-																										<option value="6">6</option>
-																										<option value="7">7</option>
-																										<option value="8">8</option>
-																										<option value="9">9</option>
-                                                                                                        <option value="10">10</option>
-																										<option value="11">11</option>
-																										<option value="12">12</option>
-																										<option value="13">13</option>
-																										<option value="14">14</option>
-																										<option value="15">15</option>
-																										<option value="16">16</option>
-																										<option value="17">17</option>
-																										<option value="18">18</option>
-																										<option value="19">19</option>
-																										<option value="20">20</option>
-																									</select>
+                                                                                                            <option value="0">0</option>
+                                                                                                            <option value="1">1</option>
+                                                                                                            <option value="2">2</option>
+                                                                                                            <option value="3">3</option>
+                                                                                                            <option value="4">4</option>
+                                                                                                            <option value="5">5</option>
+                                                                                                            <option value="6">6</option>
+                                                                                                            <option value="7">7</option>
+                                                                                                            <option value="8">8</option>
+                                                                                                            <option value="9">9</option>
+                                                                                                            <option value="10">10</option>
+                                                                                                            <option value="11">11</option>
+                                                                                                            <option value="12">12</option>
+                                                                                                            <option value="13">13</option>
+                                                                                                            <option value="14">14</option>
+                                                                                                            <option value="15">15</option>
+                                                                                                            <option value="16">16</option>
+                                                                                                            <option value="17">17</option>
+                                                                                                            <option value="18">18</option>
+                                                                                                            <option value="19">19</option>
+                                                                                                            
+																									    </select>
 																										{{/ShowUnitPrice}}
 																									</div>
 																								</td>
@@ -259,7 +261,7 @@
 																							{{#ActivityOptions}}
 																							<tr>
 																								<td style="padding: 0px 10px 7px 0px;">
-																									<input value="{{OptionId}}" name="Radio_{{ActivityCode}}" id="{{OptionName}}" type="radio" class="rdo-{{ActivityCode}}">
+																									<input value="{{OptionId}}" name="Radio_{{ActivityCode}}" id="{{OptionName}}" type="radio" class="rdo-{{ActivityCode}}" onclick="enableShortlistBTN(this)">
 																								</td>
 																								<td width="100%" style="padding: 3px 0px 3px 3px;" class="pagesearchheaderValue">
 																									{{OptionName}}
@@ -328,7 +330,7 @@
                                         <td class="Infants_aged" style="font-style: italic;">
                                             **{{ChildAgeOffer}}**
                                             <span  class="pull-right">
-                                                <input class="btn btn-primary btn-activity-shortlist" searchQualifier="{{SearchQualifier}}" activityCode="{{ActivityCode}}" childAgeOffer="{{ChildAgeOffer}}" activityName="{{ActivityName}}" ThumbUrl="{{ThumbUrl}}" ShortDescription="{{ShortDescription}}" ActivityOption ="{{ActivityOptions.OptionName}}" value="Short List" style="width:70px"/>
+                                                <input class="btn btn-primary btn-activity-shortlist" id="{{SearchQualifier}}" searchQualifier="{{SearchQualifier}}" activityCode="{{ActivityCode}}" childAgeOffer="{{ChildAgeOffer}}" activityName="{{ActivityName}}" ThumbUrl="{{ThumbUrl}}" ShortDescription="{{ShortDescription}}" ActivityOption ="{{ActivityOptions.OptionName}}" value="Short List" style="width:70px"/>
                                             </span>
                                         </td>
                                     </tr>
