@@ -103,6 +103,15 @@
             <!--If there is any result-->
             {{#Results}}
             {{#PricedActivityDetails}}
+            {{#successReprice}}
+            <tr>
+                <td>
+                    <div class="te-sm-notification alert-success">
+                        <strong>{{successReprice}}</strong>
+                    </div>
+                </td>
+            </tr>
+            {{/successReprice}}
             <tr>
                 <td style="background-color:white">
                     <table class="table table-borderless" cellpadding="0" cellspacing="0" border="0" width="100%">
@@ -230,12 +239,13 @@
                     <!--<div class="pull-right"> <button id="btnQues" type="button" onClick="onButtonClick();" value="Submit" style="width:100px; margin-right:15px;">Submit</button>  </div>-->
                     <!--<div class="pull-right"> <input id="btnQues" type="button" class="btn btn-primary" value="Proceed" style="width:100px; margin-right:15px;" /> </div>-->
                     <div class="pull-right buttongroup">
-                        <button id="Quote" title="Quote" type="button" onclick="onQuoteButtonClick();" class="btn btn-primary on-quote-only-click" style="margin-right: 176px;margin-top: 9px;">
-
-
-                            Quote
+                        <button id="Quote" title="Quote" type="button" onclick="onQuoteButtonClick();" class="btn btn-primary on-quote-only-click"  style="margin-right: 10px;margin-top: 9px;">
+                            Book
                         </button>
 
+                    </div>
+                    <div class="pull-right buttongroup">
+                        <button id="onlyQuoteNoTraveller" title="onlyQuote" type="button" onclick="onlyQuote();" class="btn btn-primary on-quote-only-click" style="margin-right: 10px;margin-top: 9px;">Quote</button>
                     </div>
 
                 </td>
