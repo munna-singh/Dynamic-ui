@@ -1,6 +1,7 @@
-
+var repriceOn = window.localStorage.getItem("repriceOn");
+var noContact = window.localStorage.getItem("noContact");
 var targetContainer = $(".historical-wrapper"),
-template = $("#tmpl-activity-price-descriptions").html();
+    template = $("#tmpl-activity-price-descriptions").html();
 var searchTemplate = $("#tmpl-search-criteria").html();
 var activityNames = { "ActivityNames": JSON.parse(window.localStorage.getItem("ActivityNames")) };
 var activitiesSelected = { "QuestionnaireDetails": JSON.parse(window.localStorage.getItem("selectedActivitiesQS")) };
@@ -16,10 +17,62 @@ function QuestionsAndContact() {
         dataType: "json",
         success: function (results) {
             if (results != null) {
+                var rePriceCheck = repriceOn === "true";
+                var noContactQuoteCheck = noContact === "true";
+                if (rePriceCheck && noContactQuoteCheck){
+
+                }
+                if (rePriceCheck && !noContactQuoteCheck) {
+                    var actRepriceCode = JSON.parse(window.localStorage.getItem("ActivityCode"));
+                    for (var x = 0; x < results.ActivityTravelServices.length; x++) {
+
+                        if (results.ActivityTravelServices[x].Rate.ProviderActivityCode == actRepriceCode) {
+
+                        }
+                        else {
+                            results.ActivityTravelServices.splice(x, 1);
+                        }
+
+                    }
+                }
                 getQuote = results;
                 groupQS(results);
+
                 var html = Mustache.to_html(template, ActivityTravelServices);
                 $(".historical-wrapper").html(html);
+                if (rePriceCheck && !noContactQuoteCheck) {
+                    $("#contactClient").hide();
+                    $("#personalInformationPlaceHolder").hide();
+                    $("#phoneNumberPlaceHolder").hide();
+                    var actRepriceTsId = JSON.parse(window.localStorage.getItem("tsIDReprice"));
+
+                    if (actRepriceTsId == ActivityTravelServices.ActivityTravelServices[0].TravelServiceId) {
+                        for (var i = 0; i < ActivityTravelServices.ActivityTravelServices[0].passanger.length; i++) {
+                            var idContact = ActivityTravelServices.ActivityTravelServices[0].passanger[i].id;
+                            var ts_ID = ActivityTravelServices.ActivityTravelServices[0].TravelServiceId;
+                            $("#personalInformationPlaceHolder" + ts_ID + "_" + idContact).hide();
+                            $("#phoneNumberPlaceHolder" + ts_ID + "_" + idContact).hide();
+                        }
+
+                        for (var v = 0; v < ActivityTravelServices.ActivityTravelServices[0].Questionnaires.length; v++) {
+                            if (ActivityTravelServices.ActivityTravelServices[0].Questionnaires[0].qsPassangerBased.length > 0) {
+                               
+                                for (var z = 0; z < ActivityTravelServices.ActivityTravelServices[0].Questionnaires[0].qsPassangerBased.length; z++) {
+                                    document.getElementById("ans_" + ActivityTravelServices.ActivityTravelServices[0].Questionnaires[1].qsPassangerBased[z].QuestionnaireId).disabled = true;
+                                }
+                            }
+                            else if (ActivityTravelServices.ActivityTravelServices[0].Questionnaires[1].qsActivityBased.length > 0){
+                                for (var z = 0; z < ActivityTravelServices.ActivityTravelServices[0].Questionnaires[1].qsActivityBased.length; z++) {
+                                    document.getElementById("ans_" + ActivityTravelServices.ActivityTravelServices[0].Questionnaires[1].qsActivityBased[z].QuestionnaireId).disabled = true;
+                                }
+                            }
+                            
+                           
+                        }
+                    }
+                   
+                    
+                }
                 if (providerType.ProviderType == 2) {
                     createPayBookBtn();
                 }
@@ -205,19 +258,71 @@ function createPayBookBtn() {
 
 var searchtoken = JSON.parse(window.localStorage.getItem("token"))
 
+var repriceResult = { "repriceResult": JSON.parse(window.localStorage.getItem("repriceResult")) };
+var q = JSON.parse(window.localStorage.getItem("RepriceQuoteID"));
+
+
+function bookAfterReprice() {
+
+    var clId_r = JSON.parse(window.localStorage.getItem("client"));
+    $.ajax({
+        url: "../api/quotes/" + q + "/travelservices/" + repriceResult.repriceResult.TravelServiceId + "/activity/book",
+        type: "POST",
+        data: JSON.stringify({
+            "SessionId": null,
+            "QuoteId": q,
+            "TravelServiceIds": repriceResult.repriceResult.TravelServiceId,
+            "Token": repriceResult.repriceResult.CriteriaToken,
+            "ContactTravelerId": clId_r[0][0].Id
+        }),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (results, status) {
+            if (results != null && status === "success") {
+
+                getQuoteBooked(q);
+            }
+        },
+        error: function (result) {
+
+        }
+
+    });
+}
+
+
 function bookBtnClick() {
 
     if (fnCheck() != false) {
         var btnID = "SaveTravelers"
         btnSpin(btnID);
-        travelerForMultipleTravelService(true, searchtoken);
+
+        var rePriceCheck = repriceOn === "true";
+        var noContactQuoteCheck = noContact === "true";
+        if (rePriceCheck && !noContactQuoteCheck) {
+            bookAfterReprice();
+
+        }
+        else {
+
+            travelerForMultipleTravelService(true, searchtoken);
+
+        }
+
     }
 }
 function quoteBtnClickQs() {
     if (fnCheck() != false) {
         var btnID = "quoteBtn"
         btnSpin(btnID);
-        travelerForMultipleTravelService(false, null);
+        var rePriceCheck = repriceOn === "true";
+        if (rePriceCheck) {
+            getQuoteBooked(q);
+
+        } else {
+            travelerForMultipleTravelService(false, null);
+        }
+        
     }
 }
 
@@ -325,6 +430,7 @@ function generateReqUpadateQuote(x, k) {
         "TotalChildren": quoteRequest.quoteRequest.TravelServices[k].TotalChildren,
         "TotalUnit": quoteRequest.quoteRequest.TravelServices[k].TotalUnit,
         "OptionCodes": quoteRequest.quoteRequest.TravelServices[k].OptionCodes,
+        "FarePrices": [],
         "Rates": rates,
         "ActivityNotes": "", "AgentNotes": "",
         "Token": searchtoken
@@ -413,6 +519,7 @@ function onSearchButtonClick() {
                 $("#personalInformationPlaceHolder").show();
                 $("#phoneNumberPlaceHolder").show();
                 client.push(results);
+                Storage.prototype.setObject("client", client);
                 addClientToQuote();
             }
 
@@ -502,7 +609,7 @@ function onBookButtonClick() {
                     numOfBooking++;
                 }
                 if (numOfBooking == quote.quote.TravelServiceIds.length) {
-                    getQuoteBooked();
+                    getQuoteBooked(quote.quote.QuoteId);
                 }
             },
             error: function (result) {
@@ -516,9 +623,9 @@ function onBookButtonClick() {
 
 }
 
-function getQuoteBooked() {
+function getQuoteBooked(id) {
 
-    window.location = "../activity/itineraries.html?QuoteId=" + quote.quote.QuoteId;
+    window.location = "../activity/itineraries.html?QuoteId=" + id;
 
 }
 

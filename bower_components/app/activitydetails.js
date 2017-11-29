@@ -175,6 +175,8 @@ $(document)
                     alert("Please short list one activity");
                     return;
                 }
+                Storage.prototype.setObject("repriceOn", false);
+                Storage.prototype.setObject("noContact", false);
                 Storage.prototype.setObject("selectedSearchQualifier", _.uniq(searchQualifierList));
                 Storage.prototype.setObject("selectedActivities", selectedActivities);
                 window.location = "../activity/ActivityRateDetails.html";
