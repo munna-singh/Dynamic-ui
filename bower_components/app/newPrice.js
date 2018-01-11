@@ -1,11 +1,6 @@
-
-var repriceOn = window.localStorage.getItem("repriceOn");
 var targetContainer = $(".historical-wrapper"),
-
 template = $("#tmpl-activity-price-descriptions").html();
-
 QStemplate = $("#tmpl-activity-price-descriptions").html();
-
 var searchTemplate = $("#tmpl-search-criteria").html();
 var activitiesSelected = window.localStorage.getItem("selectedActivities");
 var itemSelected = JSON.parse(activitiesSelected);
@@ -150,7 +145,6 @@ if (rePriceCheck) {
     });
 }
 
-}
 
 
 
@@ -254,14 +248,10 @@ function beforeQuote() {
                 "Token": searchtoken
 
             });
-
-
         }
     }
-
     var quoteName = "";
-
-    for (var i = 0; i <= selectedActivitiesQS[0][0].PricedActivityDetails.length - 1; i++) {
+     for (var i = 0; i <= selectedActivitiesQS[0][0].PricedActivityDetails.length - 1; i++) {
         if (rePriceCheck) {
             if (actCode == selectedActivitiesQS[0][0].PricedActivityDetails[i].ProviderActivityCode) {
 
@@ -271,9 +261,7 @@ function beforeQuote() {
         else {
             quoteName = quoteName + selectedActivitiesQS[0][0].PricedActivityDetails[i].OptionName + "|";
         }
-    }
-
-
+     }
     var quoteRequest = {
         "QuoteName": "ACTIVITIES - " + quoteName,
         "TravelServices": TravelServices,
@@ -282,7 +270,6 @@ function beforeQuote() {
     function getSelectedAgents(mainkey, subkey) {
         var name = mainkey + "=";
         var subCookie = subkey + "=";
-
         var firstString;
         var ca = document.cookie.split(';');
         for (var i = 0; i < ca.length; i++) {
@@ -362,7 +349,6 @@ function onlyQuote() {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (results, status) {
-
             quoteResult = results;
             Storage.prototype.setObject("quoteRequest", quoteRequest);
             Storage.prototype.setObject("quoteResult", quoteResult);
@@ -374,39 +360,11 @@ function onlyQuote() {
 
 
 }
-
-    var btnID = "Quote"
-    btnSpin(btnID);
-    var searchtoken = JSON.parse(window.localStorage.getItem("token"));
-    var TravelServices = [];
-    function formatDate(dt) {
-        var date = new Date(dt);
-        var newFormat = (date.getMonth() + 1) + '/' + date.getDate() + '/' + date.getFullYear()
-        return newFormat
-    };
-    //
-    if (noContactQuoteCheck && rePriceCheck) {
-        for (var i = 0; i <= searchqualifierSelected.length - 1; i++) {
-            TravelServices.push({
-                "TravelServiceTypeId": 8,
-                "ActivitySearchQualifier": searchqualifierSelected[i],
-                "ActivityCode": selectedActivitiesQS[0][0].PricedActivityDetails[i].ProviderActivityCode,
-                "ActivityDate": formatDate(selectedActivitiesQS[0][0].PricedActivityDetails[i].ActivityDate),
-                "OptionCodes": [selectedActivitiesQS[0][0].PricedActivityDetails[i].OptionCode],
-                "OptionNames": [selectedActivitiesQS[0][0].PricedActivityDetails[i].OptionName],
-                "FareUniTypeId": "1",
-
-                "TotalAdult": selectedActivitiesQS[0][0].PricedActivityDetails[i].NumberOfAdults,
-                "TotalChildren": selectedActivitiesQS[0][0].PricedActivityDetails[i].NumberOfChidren,
-                "TotalUnit": selectedActivitiesQS[0][0].PricedActivityDetails[i].NumberOfUnits,
-
 var quoteResult = {};
 //var newQS = [];
 //var Questions = { "Questionnaire": newQS};
 var a;
 var groupQS = [];
-
-
 function checkGroupQS() {
     if (groupQS.length == quoteResult.TravelServiceIds.length) {
         Storage.prototype.setObject("selectedActivitiesQS", groupQS);
@@ -414,14 +372,8 @@ function checkGroupQS() {
     }
 
 }
-//new code //
-
-
-//
 function qSValidation() {
-
     for (var i = 0; i < quoteResult.TravelServiceIds.length; i++) {
-
         $.ajax({
             url: "../api/validation/activity?quoteId=" + quoteResult.QuoteId + "&travelServiceId=" + quoteResult.TravelServiceIds[i] + "&squash=false",
             type: "GET",
@@ -431,32 +383,11 @@ function qSValidation() {
                 if (results != null) {
                     results.shift();
                     groupQS.push(results);
-                    checkGroupQS();                  
+                    checkGroupQS();
                     Storage.prototype.setObject("quoteResult", quoteResult);
                     window.location = "../activity/Questionnaire.html";
-                }               
+                }
             },
         });
     }
 }
-//Reprice
-//function reprice(quoteID, tsID) {
-//    $.ajax({
-//        url: "../api/quotes/" + quoteID + "/travelservices/" + repriceTravelService + "/activity/reprice",
-//        type: "GET",
-//        contentType: "application/json; charset=utf-8",
-//        dataType: "json",
-//        success: function (results, status) {
-//            if (results != null && status === "success") {
-               
-                
-//            }
-//        },
-//    });
-//}
-
-
-
-
-
-

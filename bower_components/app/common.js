@@ -19,5 +19,3 @@ function btnSpin(q) {
     a.append(spin);
     document.getElementById(q).disabled = true;
 }
-
-

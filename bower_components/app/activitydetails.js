@@ -4,7 +4,7 @@
  *
  * all te backbone events and models are presence here
  *
- * Author: Viniston Fernando
+ * Author: Viniston Fernando, Pritam Samantaray
  */
 
 function setOptions(act) {
@@ -12,7 +12,6 @@ function setOptions(act) {
         var activityCode = act[j].ActivityInfo.ActivityCode;
         for (var k = 0; k < act[j].ActivityInfo.ActivityOptions.length; k++) {
             for (var l = 0; l < act[j].ActivityInfo.ActivityOptions[k].OptionAvailabilities.length; l++) {
-
                 var maxAdult = act[j].ActivityInfo.ActivityOptions[k].OptionAvailabilities[l].MaxAdultAllowed;
                 var maxChild = act[j].ActivityInfo.ActivityOptions[k].OptionAvailabilities[l].MaxChildAllowed;
                 var maxUnit = act[j].ActivityInfo.ActivityOptions[k].OptionAvailabilities[l].MaxUnitAllowed;
@@ -44,32 +43,13 @@ function setOptions(act) {
                     sel1.empty().append(optionsForAdult);
                     sel2.empty().append(optionsForChild);
                 }
-
             }
-
-
         }
     }
 }
 var act;
 var ratings = { "rating": JSON.parse(window.localStorage.getItem("searchCriteria")) }
-
 var changeInJsonResponseforAllOptionsWithDate = {};
-
-//filter all date from all options
-
-//function filterDateFromAllOptions(r) {
-
-//    var a = [];
-//    var newDtaes = [];
-//    for (var i = 0; i < r.length; i++) {
-//        for (var j = 0; j < r[i].OptionAvailabilities; j++) {
-
-//            a.push(getDates(new Date(r[i].OptionAvailabilities[j].AvailableFromDate), new Date(r[i].OptionAvailabilities[j].AvailableToDate)));
-//        }
-
-//    }
-//}
 
 $(document)
     .ready(function () {
@@ -103,7 +83,6 @@ $(document)
                 // filterDateFromAllOptions(activityOptions);
                 var a = [];
                 var newDates = [];
-
                 for (var i = 0; i < activityOptions.length; i++) {
                     for (var j = 0; j < activityOptions[i].OptionAvailabilities.length; j++) {
 
@@ -111,28 +90,13 @@ $(document)
                     }
 
                 }
-                //for (var i = 0; i < activityOptions.length; i++) {
-
-                //    a.push(getDates(new Date(activityOptions[i].AvailableFromDate), new Date(activityOptions[i].AvailableToDate)));
-
-
-                //    //a.push(activityOptions[i].AvailableFromDate);
-                //    //a.push(activityOptions[i].AvailableToDate);                                     
-                //    //a = _.pluck(activityOptions[i], 'AvailableFromDate')
-                //    //a.push(_.pluck(activityOptions[i], 'AvailableToDate')[0]);
-                //}
+                
                 for (var j = 0; j < a.length; j++) {
-                    for (var k = 0; k < a[j].length; k++) {
-
-                        
-
+                   for (var k = 0; k < a[j].length; k++) {                 
                         newDates.push(moment(new Date(a[j][k])).format("MMM DD YYYY [(]ddd[)]"));
-
-                    }
-
+                   }
                 }
                 return _.uniq(newDates).sort();
-
             },
             groupActivityCategory: function (activities) {
                 var self = this, activityOption = {};
@@ -165,29 +129,18 @@ $(document)
                     } else {
                         isExist[0].ActivityInfo.push(activities[i].ActivityInfo);
                         activity.ActivityInfo[c].AvailabilityDates = self.findAvailabilityDates(activities[i].ActivityInfo.ActivityOptions);
-                        // 
                         c++;
                     }
                 }
                 toJsonModel.ActivityGroup = activityGroupColection;
-
-
-
                 changeInJsonResponseforAllOptionsWithDate = JSON.parse(JSON.stringify(toJsonModel)); //Parsing by Value
-
                 for (var t = 0; t < toJsonModel.ActivityGroup.length; t++) {
                     for (var y = 0; y < toJsonModel.ActivityGroup[t].ActivityInfo.length; y++) {
                         for (var u = 0; u < toJsonModel.ActivityGroup[t].ActivityInfo[y].ActivityOptions.length; u++) {
-
                             toJsonModel.ActivityGroup[t].ActivityInfo[y].ActivityOptions[u].OptionAvailabilities.length = 1;
-
-
                         }
-
                     }
-
                 }
-
                 return toJsonModel;
             },
             doAvailabilitySearch: function (e) {
@@ -222,7 +175,6 @@ $(document)
                             self.$("#SearchCriteriaPlaceHolder").html(htmSearch);
                             var htm = Mustache.render(template, self.groupActivityCategory(e));
                             self.$("#activityholder").html(htm);
-                            //
                             arrangeOptionsAccordingToDate();
                             setOptions(act);
                             self.applyActivityOptionsAlternateRowColor();
@@ -354,13 +306,10 @@ $(document)
         });
         var appview = new AppView();
     });
+
 var flag = 0;
-
-
 //Date Array
-
 Date.prototype.addDays = function (days) {
-
     var date = new Date(this.valueOf());
     date.setDate(date.getDate() + days);
     return date;
@@ -383,36 +332,25 @@ function checkDateAvailaibility(targetDate, startDate, stopDate) {
 
     if (getDates(startDate, stopDate).indexOf(moment(new Date(tarGetDATE)).format("YYYY-MM-DDThh:mm:ss")) > -1) {
         return true;
-
     }
 }
 
 //new
 function SelectActivityDate(e) {
-
     var targetDate;
-
     for (var i = 0; i < changeInJsonResponseforAllOptionsWithDate.ActivityGroup.length; i++) {
         for (var j = 0; j < changeInJsonResponseforAllOptionsWithDate.ActivityGroup[i].ActivityInfo.length; j++) {
             if (changeInJsonResponseforAllOptionsWithDate.ActivityGroup[i].ActivityInfo[j].ActivityCode == e) {
-
                 var dropdownID = "ddlActivityAvailableDates_" + e;
                 targetDate = document.getElementById(dropdownID).value;
                 for (var k = 0; k < changeInJsonResponseforAllOptionsWithDate.ActivityGroup[i].ActivityInfo[j].ActivityOptions.length; k++) {
-
                     var optionID = changeInJsonResponseforAllOptionsWithDate.ActivityGroup[i].ActivityInfo[j].ActivityOptions[k].OptionId;
-
                     for (var l = 0; l < changeInJsonResponseforAllOptionsWithDate.ActivityGroup[i].ActivityInfo[j].ActivityOptions[k].OptionAvailabilities.length; l++) {
-
                         //new Date(activityOptions[i].AvailableFromDate)
-
-
                         if (checkDateAvailaibility(new Date(targetDate), new Date(changeInJsonResponseforAllOptionsWithDate.ActivityGroup[i].ActivityInfo[j].ActivityOptions[k].OptionAvailabilities[l].AvailableFromDate),
                             new Date(changeInJsonResponseforAllOptionsWithDate.ActivityGroup[i].ActivityInfo[j].ActivityOptions[k].OptionAvailabilities[l].AvailableToDate))) {
-
-
-
                             for (var c = 0; c < changeInJsonResponseforAllOptionsWithDate.ActivityGroup[i].ActivityInfo[j].ActivityOptions[k].OptionAvailabilities.length; c++) {
+
                                 //Adult
                                 if (changeInJsonResponseforAllOptionsWithDate.ActivityGroup[i].ActivityInfo[j].ActivityOptions[k].OptionAvailabilities[c].AdultPrice.Amount != 0) {
                                     var adultPriceID = "#Adult_" + optionID;
@@ -422,7 +360,6 @@ function SelectActivityDate(e) {
                                     adult.empty().append(priceChangeForAdult);
                                 }
 
-
                                 //Child
                                 if (changeInJsonResponseforAllOptionsWithDate.ActivityGroup[i].ActivityInfo[j].ActivityOptions[k].OptionAvailabilities[c].ChildPrice.Amount != 0) {
                                     var childPriceID = "#Child_" + optionID;
@@ -431,7 +368,6 @@ function SelectActivityDate(e) {
                                     var child = $(childPriceID);
                                     child.empty().append(priceChangeForChild);
                                 }
-
 
                                 //Unit
                                 if (changeInJsonResponseforAllOptionsWithDate.ActivityGroup[i].ActivityInfo[j].ActivityOptions[k].OptionAvailabilities[c].UnitPrice.Amount != 0) {
@@ -443,47 +379,34 @@ function SelectActivityDate(e) {
                                 }
                             }
                             var optID_radio = changeInJsonResponseforAllOptionsWithDate.ActivityGroup[i].ActivityInfo[j].ActivityOptions[k].OptionId;
-
                             var optNametext = changeInJsonResponseforAllOptionsWithDate.ActivityGroup[i].ActivityInfo[j].ActivityOptions[k].OptionId;
-
                             adultPriceField = "Adult_" + optID_radio;
                             childPriceField = "Child_" + optID_radio;
                             unitPriceField = "Unit_" + optID_radio;
-
                             $("#" + optID_radio + "_radio").show();
                             $("#" + optNametext + "_text").show();
                             $("#" + adultPriceField).show();
                             $("#" + childPriceField).show();
                             $("#" + unitPriceField).show();
-
                             break;
                         }
-
                         else {
-
                             var optID_radio = changeInJsonResponseforAllOptionsWithDate.ActivityGroup[i].ActivityInfo[j].ActivityOptions[k].OptionId;
-
                             var optNametext = changeInJsonResponseforAllOptionsWithDate.ActivityGroup[i].ActivityInfo[j].ActivityOptions[k].OptionId;
-
                             adultPriceField = "Adult_" + optID_radio;
                             childPriceField = "Child_" + optID_radio;
                             unitPriceField = "Unit_" + optID_radio;
-
                             $("#"+optID_radio +"_radio").hide();
                             $("#"+optNametext+"_text").hide();
                             $("#"+adultPriceField).hide();
                             $("#"+childPriceField).hide();
                             $("#"+unitPriceField).hide();
                         }
-
                     }
-
                 }
             }
-
         }
     }
-
 }
 
 
@@ -495,25 +418,17 @@ function arrangeOptionsAccordingToDate() {
     }
 }
 
-
-
 function enableShortlistBTN(e) {
-
     var optionID = e.getAttribute('value');
-
     var radioNameACTcode = e.getAttribute('name').replace("Radio_", "");
-
     var dateSelectionDropdown = "#ddlActivityAvailableDates_" + radioNameACTcode;
-
     var dropdownChange = $(dateSelectionDropdown);
     dropdownChange.attr("OptionId", optionID);
     var a = e.getAttribute('name');
-
     //Radio_1460007 //searchqualifier
     //ddlActivityAvailableDates_1357650
     var providerType = JSON.parse(window.localStorage.getItem("searchCriteria"));
     //a = a.replace("Radio", "1");
-
     //modified code
     if (providerType.ProviderType == 1) {
         a = a.replace("Radio", "1");
@@ -521,11 +436,6 @@ function enableShortlistBTN(e) {
     else if (providerType.ProviderType == 2) {
         a = a.replace("Radio", "2_1");
     }
-
-
-
-
-
     var target = document.getElementById(a);
     if (target.disabled) {
         target.disabled = false;

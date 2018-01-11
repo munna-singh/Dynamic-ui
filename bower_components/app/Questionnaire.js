@@ -1,5 +1,4 @@
-var repriceOn = window.localStorage.getItem("repriceOn");
-var noContact = window.localStorage.getItem("noContact");
+
 var targetContainer = $(".historical-wrapper"),
     template = $("#tmpl-activity-price-descriptions").html();
 var searchTemplate = $("#tmpl-search-criteria").html();
@@ -17,27 +16,8 @@ function QuestionsAndContact() {
         dataType: "json",
         success: function (results) {
             if (results != null) {
-                var rePriceCheck = repriceOn === "true";
-                var noContactQuoteCheck = noContact === "true";
-                if (rePriceCheck && noContactQuoteCheck){
-
-                }
-                if (rePriceCheck && !noContactQuoteCheck) {
-                    var actRepriceCode = JSON.parse(window.localStorage.getItem("ActivityCode"));
-                    for (var x = 0; x < results.ActivityTravelServices.length; x++) {
-
-                        if (results.ActivityTravelServices[x].Rate.ProviderActivityCode == actRepriceCode) {
-
-                        }
-                        else {
-                            results.ActivityTravelServices.splice(x, 1);
-                        }
-
-                    }
-                }
                 getQuote = results;
                 groupQS(results);
-
                 var html = Mustache.to_html(template, ActivityTravelServices);
                 $(".historical-wrapper").html(html);
                 ///ifQSanS is present
@@ -335,39 +315,6 @@ function createPayBookBtn() {
 
 var searchtoken = JSON.parse(window.localStorage.getItem("token"))
 
-var repriceResult = { "repriceResult": JSON.parse(window.localStorage.getItem("repriceResult")) };
-var q = JSON.parse(window.localStorage.getItem("RepriceQuoteID"));
-
-
-function bookAfterReprice() {
-
-    var clId_r = JSON.parse(window.localStorage.getItem("client"));
-    $.ajax({
-        url: "../api/quotes/" + q + "/travelservices/" + repriceResult.repriceResult.TravelServiceId + "/activity/book",
-        type: "POST",
-        data: JSON.stringify({
-            "SessionId": null,
-            "QuoteId": q,
-            "TravelServiceIds": repriceResult.repriceResult.TravelServiceId,
-            "Token": repriceResult.repriceResult.CriteriaToken,
-            "ContactTravelerId": clId_r[0][0].Id
-        }),
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: function (results, status) {
-            if (results != null && status === "success") {
-
-                getQuoteBooked(q);
-            }
-        },
-        error: function (result) {
-
-        }
-
-    });
-}
-
-
 function bookBtnClick() {
 
     if (fnCheck() != false) {
@@ -416,10 +363,6 @@ function bookAfterReprice() {
         }
     });
 }
-
-
-
-
 
 function quoteBtnClickQs() {
     if (fnCheck() != false) {
@@ -619,10 +562,6 @@ function updateQuestionnaire(isBookPay) {
                         if (results != null && status == "success" && !isBookPay) {
                             location.href = "../activity/itineraries.html?QuoteId=" + quote.quote.QuoteId;
                             return results;
-
-                            //if (i == ActivityTravelServices.ActivityTravelServices.length - 1) {
-                            //    document.getElementById("Save Travelers").disabled = true;
-                            // }
                         }
                     },
                 });
@@ -650,9 +589,6 @@ function updateQuestionnaire(isBookPay) {
                             }
                             return results;
                         }
-                        //if (i == ActivityTravelServices.ActivityTravelServices.length - 1) {
-                        //    document.getElementById("Save Travelers").disabled = true;
-                        // }
                     }
                 },
             });
@@ -688,7 +624,6 @@ function a() {
 var client = [];
 function onSearchButtonClick() {
     client.splice(0, client.length)
-
     $.ajax({
         url: "../api/clients?searchCriteria=" + document.getElementById('clientSearch00').value,
         type: "GET",
@@ -702,16 +637,9 @@ function onSearchButtonClick() {
                 Storage.prototype.setObject("client", client);
                 addClientToQuote();
             }
-
-
-
-
         },
-
     });
-
 }
-
 
 function onsubmitQSButtonClick() {
 
@@ -802,7 +730,6 @@ function onBookButtonClick() {
                     }
                 });
             }
-
         }
     }
     else {
@@ -824,25 +751,14 @@ function onBookButtonClick() {
                 },
                 error: function (result) {
                     getQuoteNoBook();
-
                 }
-
             });
         }
-
-
-
     }
-
-
-
-
 }
 
-function getQuoteBooked(id) {
-
-    window.location = "../activity/itineraries.html?QuoteId=" + id;
-
+function getQuoteBooked() {
+    window.location = "../activity/itineraries.html?QuoteId=" + quote.quote.QuoteId;
 }
 
 function getQuoteNoBook() {
@@ -854,15 +770,11 @@ function getQuoteNoBook() {
         success: function (results) {
             if (results != null) {
                 Storage.prototype.setObject("getQuote", results);
-
                 window.location = "../activity/itinerariesNoBook.html";
-
             }
         },
     });
-
 }
-
 
 function findClients() {
     var map = {};
@@ -878,22 +790,10 @@ function findClients() {
                         // client = client.properties;
                         if (request.length === 3) {
                             return client.FirstName.toLowerCase().startsWith(request);
-                            //return client.FirstName.toLowerCase() === request.toLowerCase() ||
-                            //    client.LastName.toLowerCase() === request.toLowerCase() ||
-                            //    client.Phone.toLowerCase() === request.toLowerCase();
-                        }
-                        //else {
-                        //    var spaceterm = request;
-                        //    return airport.Name.toLowerCase().startsWith(spaceterm) ||
-                        //        client.Name.toLowerCase().indexOf(spaceterm.toLowerCase()) !== -1 ||
-                        //        client.IATACode.toLowerCase().startsWith(spaceterm) ||
-                        //        client.IATACityCode.toLowerCase().startsWith(spaceterm) ||
-                        //        client.MACCode.toLowerCase().startsWith(spaceterm);
-                        //}
+                        }                        
                     });
                 $.each(data,
                     function (i, item) {
-
                         var First = item.FirstName;
                         var Last = item.LastName;
                         var name = First + " " + Last;
@@ -901,20 +801,10 @@ function findClients() {
 
                         map[name] = { "FirstName": First, "LastName": Last, "PhoneNumber": Number };
                         items.push(name, Number);
-
-                        //var First = item.FirstName;
-                        //var Last = item.LastName;
-
-
-
-
                     });
                 response(items);
                 $(".dropdown-menu").css("height", "auto");
             },
-
-
-
             updater: function (item) {
                 $('[id*=FirstName]').val(map[item].FirstName);
                 $('[id*=LastName]').val(map[item].LastName);
@@ -923,6 +813,4 @@ function findClients() {
                 return item;
             }
         });
-
-
 }

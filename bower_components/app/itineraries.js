@@ -32,15 +32,21 @@ var quoteID;
 var contactId;
 
 function getQuoteRes(results) {
+
     var targetContainer = $(".historical-wrapper"),
+
         template = $("#tmpl-activity-price-descriptions").html();
+
     QStemplate = $("#tmpl-activity-price-descriptions").html();
+
     template = $("#tmpl-activity-summary").html();
+
     var activityNames = { "ActivityNames": JSON.parse(window.localStorage.getItem("ActivityNames")) };
+
     var searchTemplate = $("#tmpl-search-criteria").html();
     var summary = results;
     quoteID = summary.QuoteId;
-    if (summary.Contact != null) {
+    if (summary.Contact != null){
         contactId = summary.Contact.ContactId;
     }
     for (var i = 0; i < summary.ActivityTravelServices.length; i++) {
@@ -55,10 +61,15 @@ function getQuoteRes(results) {
         summary.ActivityTravelServices[i]["StartDate"] = summary.ActivityTravelServices[i].StartDate.replace("T00:00:00", "");
         summary.ActivityTravelServices[i]["EndDate"] = summary.ActivityTravelServices[i].EndDate.replace("T00:00:00", "");
     }
+
     var details = { "details": summary };
     var html = Mustache.to_html(template, details);
     $(".historical-wrapper").html(html);
+
+
 }
+
+
 function GetBookingStatus(statuId) {
     var serviceStatus = [];
 
@@ -66,14 +77,17 @@ function GetBookingStatus(statuId) {
         case 1:
             serviceStatus.push("OFFERED");
             serviceStatus.push("#c688bb");
+
             break;
         case 3:
             serviceStatus.push("BOOKED");
             serviceStatus.push("#822678");
+
             break;
         case 23:
             serviceStatus.push("BOOKED-NOPAY");
             serviceStatus.push("#822678");
+
             break;
         case 5:
             serviceStatus.push("CANCELED");
@@ -87,14 +101,24 @@ function GetBookingStatus(statuId) {
             serviceStatus.push("PENDING CANCEL");
             serviceStatus.push("#d9534f");
             break;
+
     }
+
+
     return serviceStatus;
 }
+
 function actualTSP() {
+
     window.open("../itineraries/" + quoteID, '_blank');
+
 }
+
+
 function returnBookRequest(TravelServiceId) {
+
     var searchtoken = JSON.parse(window.localStorage.getItem("token"));
+
     var dataInputAddClientToBook = {
         "SessionId": null,
         "QuoteId": quoteID,
@@ -104,8 +128,12 @@ function returnBookRequest(TravelServiceId) {
     };
     return dataInputAddClientToBook;
 }
+
 var numOfBooking = 0;
+
 function onBookButtonClick(tsid) {
+
+
     $.ajax({
         url: "../api/quotes/" + quoteID + "/travelservices/" + tsid + "/activity/book",
         type: "POST",
@@ -119,10 +147,14 @@ function onBookButtonClick(tsid) {
         },
         error: function (result) {
             window.location = "../activity/itineraries.html?QuoteId=" + quoteID;
+
         }
+
     });
+
+
+
 }
-var repriceTravelService;
 
 function bookFromTSP(e) {
  
@@ -161,8 +193,10 @@ function reprice(quoteID, tsID) {
 
 var a = { "Remarks": "cancel" }
 function doCancel(cn) {
+
     var tsID = cn.getAttribute("id");
     btnSpin(tsID);
+
     $.ajax({
         url: "../api/quotes/" + quoteID + "/travelservices/" + tsID + "/activity/cancelpnr",
         type: "POST",
@@ -176,30 +210,11 @@ function doCancel(cn) {
         },
         error: function (result) {
             window.location = "../activity/itineraries.html?QuoteId=" + quoteID;
+
         }
+
     });
+
 }
-
-
-//function createRateCallRqForRepriceTS(e) {
-//    var rateCallRqForRepriceTS = {
-//        "Token": e.CriteriaToken,
-//        "ProviderType": e.Criteria.ProviderType,
-//        "Activities": [{
-//            "ProviderActivityCode": e.ActivityRateDetails.PricedActivityDetails,
-//            "ActivityDate": "2017-12-23T00:00:00",
-//            "NumberOfAdults": "1",
-//            "NumberOfChildren": "0",
-//            "NumberOfUnits": 0,
-//            "OptionCodes": ["15199384"]
-//        }]
-//    }
-
-//}
-
-
-
-
-
 
 
