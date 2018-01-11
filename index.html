@@ -11,10 +11,10 @@
     <link href="bower_components/assets/css/mui.css" rel="stylesheet" />
     <link href="bower_components/assets/css/font-awesome.css" rel="stylesheet" />
     <link href="bower_components/assets/css/select2.css" rel="stylesheet" />
-	<link href="bower_components/assets/css/search.css" rel="stylesheet" />
-	<script src="//maps.googleapis.com/maps/api/js?v=3.23&libraries=places&key=AIzaSyAgV9-OY_dxY6-ixsB8quvHC_ZFI9JtZK4" type="text/javascript"></script>
+    <link href="bower_components/assets/css/search.css" rel="stylesheet" />
+    <script src="//maps.googleapis.com/maps/api/js?v=3.23&libraries=places&key=AIzaSyAgV9-OY_dxY6-ixsB8quvHC_ZFI9JtZK4" type="text/javascript"></script>
 </head>
-<body>	
+<body>
     <div class="totalstaybooking">
         <div class="contentBlock">
             <div title="" class="header bsiLogo">
@@ -41,7 +41,7 @@
                                     <div class="control-group">
                                         <label class="control-label" for="destination">Destination</label>
                                         <div class="controls">
-                                            <input type="text" name="destination" id="destination" placeholder="Search for airport" class="form-control destination-typeahead" required="required" style="width:300px" />										
+                                            <input type="text" name="destination" id="destination" placeholder="Search for airport" class="form-control destination-typeahead" required="required" style="width:300px" />
                                         </div>
                                     </div>
                                     <div class="control-group">
@@ -86,26 +86,26 @@
                                             <select class="longbox" name="ActivityType" ui-select2 id="ActivityType">
                                                 <option value="0" selected>All</option>
                                                 <optgroup label="Attraction">
-                                                    <option value="15">Shopping Tours</option>
-                                                    <option value="9">Other</option>
-                                                    <option value="4">Dinner Show</option>
-                                                    <option value="12">Recreational Rentals</option>
-                                                    <option value="3">Boat Tours</option>
-                                                    <option value="16">Sightseeing Tours</option>
-                                                    <option value="20">Theater & Concerts</option>
                                                     <option value="1">Air Tours</option>
                                                     <option value="2">Attraction Passes</option>
-                                                    <option value="13">Restaurants</option>
-                                                    <option value="21">Theme Parks</option>
-                                                    <option value="24">Watersports</option>
-                                                    <option value="10">Packages & Combo Tours</option>
-                                                    <option value="17">Ski</option>
-                                                    <option value="7">Multiple Day Guided Tours</option>
+                                                    <option value="3">Boat Tours</option>
+                                                    <option value="4">Dinner Show</option>
                                                     <option value="5">Golf</option>
-                                                    <option value="19">T.H.E. Pass</option>
-                                                    <option value="8">Museum</option>
-                                                    <option value="22">Tours</option>
+                                                    <option value="7">Multiple Day Guided Tours</option>
+                                                    <option value="8">Museum</option>                                                    
+                                                    <option value="10">Packages & Combo Tours</option>
+                                                    <option value="12">Recreational Rentals</option>
+                                                    <option value="13">Restaurants</option>
+                                                    <option value="15">Shopping Tours</option>
+                                                    <option value="16">Sightseeing Tours</option>
+                                                    <option value="17">Ski</option>
                                                     <option value="18">Sporting Events</option>
+                                                    <option value="19">T.H.E. Pass</option>
+                                                    <option value="20">Theater & Concerts</option>
+                                                    <option value="21">Theme Parks</option>
+                                                    <option value="22">Tours</option>
+                                                    <option value="24">Watersports</option>
+                                                    <option value="9">Other</option>
                                                 </optgroup>
                                                 <optgroup label="Guide">
                                                     <option value="6">Guide</option>
@@ -123,19 +123,19 @@
                                         <div class="controls">
                                             <select class="longbox" name="ProviderType" ui-select2 id="ProviderType">
                                                 <option value="1">Tourico</option>
-                                                <option value="2">ADX</option>    
-                                                <option value="0">Multi</option> 
+                                                <option value="2">ADX</option>
+                                                <option value="0">Multi</option>
                                             </select>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-							 <div class="box-footer">
-                    <div class="pull-right buttongroup">
-                        <input id="Back" class="btn btn-small" onclick="window.location = 'Search.html'; return false;" value="Cancel" />
-                        <input id="registerbtn" class="btn btn-medium btn-primary" value="Search" />
-                    </div>
-                </div>
+                            <div class="box-footer">
+                                <div class="pull-right buttongroup">
+                                    <input id="Back" class="btn btn-small" onclick="window.location = 'Search.html'; return false;" value="Cancel" />
+                                    <input id="registerbtn" class="btn btn-medium btn-primary" value="Search" />
+                                </div>
+                            </div>
                         </form>
                     </div>
                     <div class="saving" id="showhideprogress" style="display: none">
@@ -144,13 +144,13 @@
                             <span>Saving...</span>
                         </div>
                     </div>
-                </div>               
-				<div>
-					<p class="quote-header">Your recent bookings</p>
-					<div id= "travel-service-quotes">
-					
-				    </div>
-				</div>
+                </div>
+                <div>
+                    <p class="quote-header">Your recent bookings</p>
+                    <div id="travel-service-quotes">
+
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -163,25 +163,25 @@
         </li>
         {{/activities}}
     </script>
-	<script id="tmpl-search-quotes" type="text/mustache-template">
-		<table width="100%" style="border-width:2px;table-layout: fixed;">
-			<th class="left-align" style="width: 120px;">Quote Id</th>
-			<th class="left-align" style="width: 430px;">Name</th>
-			<th class="left-align" style="width: 140px;">Ref. #</th>
-			<th class="left-align"style="width: 230px;">Client</th>
-			<th class="left-align">Agent</th>
-		
-		{{#Results}}	
-		<tr>
-			<td class="quote-table-column quote-link" onclick="window.location='../activity/itineraries.html?QuoteId={{QuoteId}}'">{{QuoteId}}</td>
-			<td class="elipsis-column" style="padding-right: 20px;">{{Name}}</td>
-			<td>{{AdxRefNum}}</td>
-			<td>{{Client.DisplayName}}</td>
-			<td>{{AgentName}}</td>
-		</tr>	
-		{{/Results}}
-	</table>		
-	</script>
+    <script id="tmpl-search-quotes" type="text/mustache-template">
+        <table width="100%" style="border-width:2px;table-layout: fixed;">
+            <th class="left-align" style="width: 120px;">Quote Id</th>
+            <th class="left-align" style="width: 430px;">Name</th>
+            <th class="left-align" style="width: 140px;">Ref. #</th>
+            <th class="left-align" style="width: 230px;">Client</th>
+            <th class="left-align">Agent</th>
+
+            {{#Results}}
+            <tr>
+                <td class="quote-table-column quote-link" onclick="window.location='../activity/itineraries.html?QuoteId={{QuoteId}}'">{{QuoteId}}</td>
+                <td class="elipsis-column" style="padding-right: 20px;">{{Name}}</td>
+                <td>{{AdxRefNum}}</td>
+                <td>{{Client.DisplayName}}</td>
+                <td>{{AgentName}}</td>
+            </tr>
+            {{/Results}}
+        </table>
+    </script>
     <script src="bower_components/assets/js/Jquery/jquery-2.0.3.min.js"></script>
     <script src="bower_components/assets/js/Nod/nod.js"></script>
     <script src="bower_components/assets/js/Bootstrap/bootstrap-datepicker.js"></script>
@@ -194,6 +194,6 @@
     <link href="bower_components/assets/css/typeahead.css" rel="stylesheet" />
     <script src="bower_components/assets/js/libs/bootstrap3-typeahead.min.js"></script>
     <script src="templates/allairport.js"></script>
-	<script src="bower_components/app/common.js"></script>
+    <script src="bower_components/app/common.js"></script>
 </body>
 </html>

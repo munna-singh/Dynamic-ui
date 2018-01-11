@@ -8,6 +8,9 @@ $(document)
                 tmp = items[index].split("=");
                 if (tmp[0] === "QuoteId") result = decodeURIComponent(tmp[1]);
             }
+            setTimeout(function () {
+            }, 500);
+
             $.ajax({
                 url: "../api/quotes/" + result + "?includeDetails=false&includeSuggestions=true&tefsInvoices=false",
                 type: "GET",
@@ -122,17 +125,16 @@ function onBookButtonClick(tsid) {
 var repriceTravelService;
 
 function bookFromTSP(e) {
+ 
     var activityCode = e.getAttribute("ActivityCode");
     Storage.prototype.setObject("ActivityCode", activityCode);
     var tsID = e.getAttribute("id");
     Storage.prototype.setObject("tsIDReprice", tsID);
     repriceTravelService = tsID;
     btnSpin(tsID);
-    // onBookButtonClick(tsID);
-    Storage.prototype.setObject("repriceOn", true);
+    
     reprice(quoteID, tsID);
 }
-
 function reprice(quoteID, tsID) {
     $.ajax({
         url: "../api/quotes/" + quoteID + "/travelservices/" + tsID + "/activity/reprice",
@@ -141,13 +143,17 @@ function reprice(quoteID, tsID) {
         dataType: "json",
         success: function (results, status) {
             if (results != null && status === "success") {
-                if (results.HasAvailAtSamePrice){
+                Storage.prototype.setObject("REPRICEON", true);
+                if (results.HasAvailAtSamePrice) {
                     Storage.prototype.setObject("repriceResult", results);
                     Storage.prototype.setObject("RepriceQuoteID", quoteID);
                     window.location = "../activity/ActivityRateDetails.html?QuoteId=" + quoteID + "&ServiceId=" + tsID;
+                }
+                else {
+                    var searchtoken = JSON.parse(window.localStorage.getItem("token"));
+                    window.location = "../activity/activityresults.html?CriteriaToken=" + searchtoken;
 
                 }
-                
             }
         },
     });

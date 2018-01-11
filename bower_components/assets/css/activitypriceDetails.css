@@ -28,6 +28,25 @@
 .ice-grey {
     background-color: #E0E6E8;
 }
+.dashboard-title-text {
+    color: #FFFFFF;
+    font-size: 14px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.dashboard-general-icon {
+    float: left;
+    width: 40px;
+    height: 40px;
+    margin-top: -10px;
+    padding-top: 11px;
+    text-align: center;
+    margin-right: 10px;
+    background-color: #A3D55D;
+    margin-left: -15px;
+    border-radius: 4px 0px 0px 0px;
+}
 .details {
     font-family: "Open Sans", "Helvetica Neue", Arial, sans-serif;
     color: #858C8E;

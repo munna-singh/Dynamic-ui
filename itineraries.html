@@ -89,9 +89,10 @@
             <div class="col-md-8">
                 <div class="panel-default">
                     <div>
-                        <div class="panel-title panel-heading">
-                            <span class="fa fa-list-ul dashboard-general-icon"></span>
-                            <div class="dashboard-title-text ellipsis" style="color: white;"><b>ITINERARY DETAILS</b></div>
+                        <div class="panel-title panel-heading"">
+                            <span class="fa fa-list-ul dashboard-general-icon" style="color:  white;"></span>
+                            <div class="dashboard-title-text ellipsis" >
+                            <b>ITINERARY DETAILS</b></div>
                         </div>
                         <div style="padding: 15px;background-color: #E0E6E8;">
                             <ul>
@@ -100,7 +101,7 @@
                                         <div>
                                             <div>
                                                 <span class="service-list-icon">
-
+                                                    <i class="fa icon fa-universal-access" style="padding: 5px;"></i>
                                                 </span>
                                                 <div class="service-list-title">
                                                     <p>
@@ -128,14 +129,21 @@
 
                                                 <div class="col-xs-8 col-md-8">
                                                     {{#Rate.NumberOfUnits}}
-                                                    <strong>Number of Units:</strong> {{Rate.NumberOfUnits}}
+                                                    <strong>Number of Units:  </strong>    {{Rate.NumberOfUnits}}
                                                     {{/Rate.NumberOfUnits}}
                                                     {{#Rate.NumberOfAdults}}
-                                                    <strong>Number of Adults:</strong> {{Rate.NumberOfAdults}}
+                                                    <strong>Number of Adults   :   </strong>   {{Rate.NumberOfAdults}}
                                                     {{/Rate.NumberOfAdults}}
                                                 </div>
+                                                <div class="row" style="margin-top: 28px; margin-left: 0px;">
+                                                    <div class="col-xs-8 col-md-8">
+                                                        {{#Rate.NumberOfChidren}}
+                                                        <strong>Number of Chidren:   </strong> {{Rate.NumberOfChidren}}
+                                                        {{/Rate.NumberOfChidren}}
+                                                    </div>
+                                                </div>
 
-                                                <div class="col-xs-4 col-md-4">
+                                                <div class="col-xs-4 col-md-4" style="margin-left: 481px; margin-top: -53px;">
                                                     <strong>Activity Rate:</strong> {{Rate.TotalPrice.CurrencyCode}} {{Rate.TotalPrice.Symbol}}{{Rate.TotalPrice.Amount}}
                                                 </div>
 
@@ -188,7 +196,7 @@
                         <div class="panel-default panel">
                             <div>
                                 <div class="panel-title panel-heading">
-                                    <span class="fa icon icon-te-hotel dashboard-general-icon"></span>
+                                    <span class="fa icon fa-universal-access dashboard-general-icon" style="color:  white;"></span>
                                     <div style="color:white" title="">
                                         <b>ACTIVITY DETAILS</b>
                                     </div>
@@ -240,12 +248,23 @@
                                     {{#Rate.NumberOfAdults}}
                                     <div class="col-md-4 col-xs-4">
                                         <label class="details">Number of Adults</label>
-
                                     </div>
                                     <div class="col-md-8 col-xs-8">
                                         {{Rate.NumberOfAdults}}
                                     </div>
                                     {{/Rate.NumberOfAdults}}
+
+                                </div>
+                                <div class="row row-7 ice-grey">
+                                    {{#Rate.NumberOfChidren}}
+                                    <div class="col-md-4 col-xs-4">
+                                        <label class="details">Number of Chidren</label>
+
+                                    </div>
+                                    <div class="col-md-8 col-xs-8">
+                                        {{Rate.NumberOfChidren}}
+                                    </div>
+                                    {{/Rate.NumberOfChidren}}
                                 </div>
 
                                 <div class="row row-7 ice-grey">
@@ -280,7 +299,7 @@
                                     <div class="col-xs-12 col-md-12">
 
                                         {{# IsBookEnable}}
-                                        <button id="{{TravelServiceId}}" ActivityCode="{{Rate.ProviderActivityCode}}"  title="Save Travelers" type="button" onclick="bookFromTSP(this)" class="btn btn-primary on-quote-only-click" style="margin-right: 10px;margin-top: 9px;">Book</button>
+                                        <button id="{{TravelServiceId}}" ActivityCode="{{Rate.ProviderActivityCode}}" title="Save Travelers" type="button" onclick="bookFromTSP(this)" class="btn btn-primary on-quote-only-click" style="margin-right: 10px;margin-top: 9px;">Book</button>
 
                                         {{/ IsBookEnable}}
                                         {{# IsCancelEnable}}

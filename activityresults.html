@@ -153,7 +153,7 @@
 																								<td colspan="2" valign="bottom" style="padding-bottom: 4px">
 
 																									<b>Select available date:</b>&nbsp;
-																									<select id="ddlActivityAvailableDates_{{ActivityCode}}" ui-select2 class="input" style="width: 192px;" onchange="SelectActivityDate(1218245)">
+																									<select id="ddlActivityAvailableDates_{{ActivityCode}}" ui-select2 class="input" style="width: 192px;" onchange="SelectActivityDate({{ActivityCode}})">
 																										{{#AvailabilityDates}}
 																										<option value="{{.}}">{{.}}</option>
 																										{{/AvailabilityDates}}
@@ -165,7 +165,7 @@
 																									{{#ShowAdultPrice}}
 																									<div>
 																										<nobr>
-																											<span id="Adults_1218217" class="pagesearchheaderName">Adult (11+)</span>
+																											<span id="Adults_1218217" class="pagesearchheaderName">Adult</span>
 																											<span id="PerPerson_1218217" style="display: none">Per Person</span>
 																										</nobr>
 																									</div>
@@ -196,7 +196,7 @@
 																								<td style="padding-bottom: 4px; height: 38px;">
 																									{{#ShowChildPrice}}
 																									<div class="pagesearchheaderName">
-																										<nobr>Child (5-11)</nobr>
+																										<nobr>Child ({{MinChildAge}}-{{MaxChildAge}})</nobr>
 																									</div>
 																									<select id="ddlActivityChilds_{{ActivityCode}}" class="input" style="width: 80px; margin-left:10px;" onchange="changeTotalMargin({{ActivityCode}})">
 																										<option value="0">0</option>
@@ -260,31 +260,33 @@
 																						<tbody style="display: ;" class="activityOptionstbody" name="tbody">
 																							{{#ActivityOptions}}
 																							<tr>
-																								<td style="padding: 0px 10px 7px 0px;">
+																								<td id="{{OptionId}}_radio"style="padding: 0px 10px 7px 0px;">
 																									<input value="{{OptionId}}" name="Radio_{{ActivityCode}}" id="{{OptionName}}" type="radio" class="rdo-{{ActivityCode}}" onclick="enableShortlistBTN(this)">
 																								</td>
-																								<td width="100%" style="padding: 3px 0px 3px 3px;" class="pagesearchheaderValue">
+																								<td id="{{OptionId}}_text" width="100%" style="padding: 3px 0px 3px 3px;" class="pagesearchheaderValue">
 																									{{OptionName}}
 																								</td>
-
-																								<td nowrap="nowrap" class="align_left right_pad" style="padding-left:40px;">
+                                                                                                {{#OptionAvailabilities}}
+																								<td nowrap="nowrap" class="align_left right_pad" id="Adult_{{OptionId}}" style="padding-left:40px;">
 																									{{#ShowAdultPrice}}
 																									{{AdultPrice.Symbol}}{{AdultPrice.Amount}} &nbsp;
 																									{{/ShowAdultPrice}}
 																								</td>
 
 
-																								<td align="left" nowrap="nowrap" class="align_left right_pad" style="padding-left:40px;">
+																								<td align="left" nowrap="nowrap" class="align_left right_pad" id="Child_{{OptionId}}" style="padding-left:40px;">
 																									{{#ShowChildPrice}}
 																									{{ChildPrice.Symbol}}{{ChildPrice.Amount}}
 																									{{/ShowChildPrice}}
 																								</td>
 
-																								<td align="left" nowrap="nowrap" class="pull-right">
+																								<td align="left" nowrap="nowrap" id="Unit_{{OptionId}}" class="pull-right">
 																									{{#ShowUnitPrice}}
 																									{{UnitPrice.Symbol}}{{UnitPrice.Amount}}
 																									{{/ShowUnitPrice}}
 																								</td>
+                                                                                                {{/OptionAvailabilities}}
+
 																							</tr>
 																							{{/ActivityOptions}}
 																						</tbody>
@@ -321,7 +323,7 @@
                                     <tr>
                                         <td class="Activities_discount">
                                             {{#ShowDiscount}}
-                                            <img id="_ctl0_MainHolder_ActivitySearchResults1_ActivityResult1_Image5" src="img/discount_star.gif" align="absmiddle" border="0">&nbsp;
+                                            <img id="_ctl0_MainHolder_ActivitySearchResults1_ActivityResult1_Image5" src="img/discount_star.gif" align="middle" border="0">&nbsp;
                                             {{SpecialOffer}}
                                             {{/ShowDiscount}}
                                         </td>
@@ -409,6 +411,7 @@
     <script src="bower_components/assets/js/Select2/select2.js"></script>
     <script src="bower_components/assets/js/libs/underscore.js"></script>
     <script src="bower_components/assets/js/libs/backbone.js"></script>
+    <script src="bower_components/assets/js/UtilityFramework/moment.min.js"></script>
     <script src="bower_components/assets/js/libs/mustache.min.js"></script>
     <script src="bower_components/app/activitydetails.js"></script>
 	<script src="bower_components/app/common.js"></script>
